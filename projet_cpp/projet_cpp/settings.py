@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'exocpp.urls'
+ROOT_URLCONF = 'projet_cpp.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'exocpp.wsgi.application'
+WSGI_APPLICATION = 'projet_cpp.wsgi.application'
 
 
 # Database
