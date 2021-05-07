@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'exo',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,5 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+TAGGIT_CASE_INSENSITIVE = True
