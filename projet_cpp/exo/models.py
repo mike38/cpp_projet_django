@@ -33,8 +33,8 @@ class Fichier(models.Model):
     #def supprimer(self): #fonction qui permettra de supprimer des exos
 
 
-    def __str__(self):
-        return self.title
+    #def __str__(self):
+    #    return self.title
 
 
 class Utilisation(models.Model):
