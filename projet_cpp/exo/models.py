@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
+from django.urls import reverse
 
 
 class Chapitre(models.Model):
