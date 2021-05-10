@@ -17,9 +17,12 @@ class Exercice(models.Model):
     tags = TaggableManager()
     chapitre = models.ForeignKey(Chapitre, on_delete = models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('exercice-details', args=[str(self.id)])
+
 
 class Fichier(models.Model):
-    file = models.FileField(upload_to='uploads/')
+    file = models.FileField(upload_to='')
     format = models.CharField(max_length = 2, choices = [('w', 'Document Word'),
         ('p', 'PDF'), ('t', 'LaTeX'), ('i', 'Image')])
     exercice = models.ForeignKey(Exercice, related_name = 'fichier',
