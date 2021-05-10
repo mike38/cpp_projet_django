@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{exercice.nom}} ({{exercice.chapitre.nom}})</h1>
+  <ul>
+    {% for fichier in fichiers %}
+		{% if fichier.format == "i" %}
+			<img src="{{ fichier.file.url }}" alt="énoncé"/>
+		{% else %}
+			<a href="{{ fichier.download }}">{{ fichier.get_format_display }}</a>
+		{% endif %}
+	{% endfor %}
+  </ul>
+  
+{% endblock %}
