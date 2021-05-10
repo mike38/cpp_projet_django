@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +7,54 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com"> 
+  <link href="https://fonts.googleapis.com/css2?family=Acme&family=Caveat:wght@600&family=Courgette&family=Cuprum:wght@500&family=Montserrat:wght@500&family=Roboto&display=swap" rel="stylesheet">
   <!-- Add additional CSS in static file -->
-  {% load static %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+  <div class="page-header">
+      <div class="wrapper col1">
+        <div id="topbar">
+          <div id="search">
+            <form action="#" method="post">
+              <fieldset>
+                <input type="text" value="Rechercher un exercice&hellip;"  onfocus="this.value=(this.value=='Rechercher un exercice&hellip;')? '' : this.value ;" />
+                <input type="submit" name="go" id="go" value="Recherche" />
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <h1><a href="/">ExoCpp</a></h1>
+      <h5>Le site d'exercices de la Prépa des INP de Grenoble</h5>
+      <div class="annee">
+        <p><a href="/">1A</a>
+        <a href="/">2A</a></p>
+      </div>
+  </div>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
-          {% block sidebar %}
-           <ul class="sidebar-nav">
-               <li><a href="{% url 'home' %}">Home</a></li>
-           </ul>
-          {% endblock %}
+        {% block sidebar %}
+          <ul class="sidebar-nav">
+                 <li><a href="{% url 'home' %}">Accueil</a></li>
+                 <li><a href="{% url 'exercices' %}">Tous les exercices</a></li>
+          </ul>
+        {% endblock %}
+            <!--<p><h4><a href="{% url 'home' %}">Maths</a></h4></p>
+            <p><h4><a href="{% url 'home' %}">Physique</a></h4></p>
+            <p><h4><a href="{% url 'home' %}">Chimie</a></h4></p>-->
+          <p><h4><a href="#">Maths</a></h4></p>
+            <div class="liste-chap">
+              <ul>
+                <li><a href="#">Courbes paramétrées</a></li>
+                <li><a href="#">Intégrales généralisées</a></li>
+                <li><a href="#">Réduction des endomorphismes</a></li>
+              </ul>
+            </div>
+          <p><h4><a href="#">Physique</a></h4></p>
+          <p><h4><a href="#">Chimie</a></h4></p>
       </div>
          <div class="col-sm-10 ">
              {% block content %}

@@ -1,5 +1,87 @@
 .sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
+    /*padding-right: 20px;*/
+    /*padding: 0;*/
     list-style: none;
+    padding-left: 15px;
 }
+
+
+.page-header {
+    background-color: #032955;
+    margin-top: 0;
+    margin-bottom: 40px;
+    padding: 20px 20px 20px 40px;
+}
+
+.page-header h1,
+.page-header h1 a,
+.page-header h1 a:visited,
+.page-header h1 a:active {
+    color: #ffffff;
+    font-size: 54pt;
+    text-decoration: none;
+}
+
+h1 a, h2 a {
+    color: #FFFFFF;
+    font-family: 'Caveat', cursive;
+}
+
+h5 {
+	color: #A0B5CE;
+	font-size: 18pt;
+	font-family: 'Caveat', cursive;
+}
+
+h4 a {
+	color: #FFFFFF;
+	font-family: 'Cuprum', sans-serif;
+}
+
+
+.col-sm-2{
+	background-color: #165399;
+}
+
+.col-sm-2 h4,
+.col-sm-2 h4 a,
+.col-sm-2 h4 a:visited,
+.col-sm-2 h4 a:active {
+    color: #FFFFFF;
+    font-size: 22pt;
+    text-decoration: none;
+}
+
+
+body {
+    background-color: #D6DADE;
+    color: black; /*  */
+}
+
+h2 {
+	font-size: 32pt;
+	font-family: 'Cuprum', sans-serif;
+}
+
+
+
+
+#topbar{height:45px; padding:15px 0; float: right}
+#topbar #search{display:block; float:right;}
+
+
+
+.annee {
+	float:right;
+	font-size: 32pt;
+	color: #FFFFFF;
+	font-family: 'Cuprum', sans-serif;
+}
+
+.liste-chap,
+.liste-chap:visited
+.liste-chap:hover {
+    color: white;
+    background: none;
+}
+
