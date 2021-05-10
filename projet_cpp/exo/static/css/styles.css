@@ -3,6 +3,8 @@
     /*padding: 0;*/
     list-style: none;
     padding-left: 15px;
+    color: #FFFFFF;
+	font-family: 'Cuprum', sans-serif;
 }
 
 
@@ -83,5 +85,6 @@ h2 {
 .liste-chap:hover {
     color: white;
     background: none;
+    font-size: 14pt;
 }
 
