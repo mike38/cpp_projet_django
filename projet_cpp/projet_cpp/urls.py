@@ -17,8 +17,17 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from exo import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('exo.urls')),
+    #path('search/', include('haystack.urls')),
+    path('search_chap', views.search_chap, name='search-chap')
+    ##path('search/', 'exo.views.search_chap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+#urlpatterns = [
+#    url(r'^/search/?$', MySearchView.as_view(), name='search_view'),
+#]

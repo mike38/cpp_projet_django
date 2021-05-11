@@ -5,7 +5,7 @@
   <ul>
     {% for fichier in fichiers %}
 		{% if fichier.format == "i" %}
-			<img src="{{ fichier.file.url }}" alt="énoncé"/>
+			<img src="{{ fichier.file.url }}" alt="énoncé"/ width="750">
 		{% else %}
 			<a href="{{ fichier.download }}">{{ fichier.get_format_display }}</a>
 		{% endif %}

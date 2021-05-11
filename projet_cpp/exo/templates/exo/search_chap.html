@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+	<center>
+	{% if searched %}
+		<h3>Vous avez recherché <em>{{ searched }}</em></h3>
+
+	{% else %}
+		<h3>Vous n'avez rien recherché ! Try again ;-)</h3>
+	{% endif %}
+	</center>
+
+{% endblock %}

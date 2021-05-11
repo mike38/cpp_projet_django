@@ -17,11 +17,16 @@
       <div class="wrapper col1">
         <div id="topbar">
           <div id="search">
-            <form action="#" method="post">
+            <!--<form action="#" method="post">
               <fieldset>
                 <input type="text" value="Rechercher un exercice&hellip;"  onfocus="this.value=(this.value=='Rechercher un exercice&hellip;')? '' : this.value ;" />
                 <input type="submit" name="go" id="go" value="Recherche" />
               </fieldset>
+            </form>-->
+            <form class="search" method=POST action="{% url 'search-chap' %}">
+              {% csrf_token %}
+              <input class="barre-recherche" type="search" placeholder="Rechercher un exercice" aria-label="Recherche" name="searched">
+              <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
             </form>
           </div>
         </div>
