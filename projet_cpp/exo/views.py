@@ -8,8 +8,10 @@ def home(request):
 
 class ExerciceListView(generic.ListView):
     model = Exercice
+    paginate_by = 10
 
 def detail(request, exercice_id):
     exercice = get_object_or_404(Exercice, pk=exercice_id)
-    return render(request, 'exo/detail.html', {'exercice': exercice, 'fichiers': Fichier.objects.filter(exercice_id=exercice_id)})
+    return render(request, 'exo/detail.html', {'exercice': exercice,
+    	'fichiers': Fichier.objects.filter(exercice_id=exercice_id)})
 
