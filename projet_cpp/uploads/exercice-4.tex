@@ -1,0 +1,64 @@
+\documentclass[10pt,a4paper]{article}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\headsep}{25pt} % Entre le haut de page et le texte
+\usepackage{setspace}
+\usepackage{geometry}
+\geometry{hmargin=1.8cm,vmargin=3cm}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage [latin1]{inputenc}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\singlespacing
+\usepackage[french]{babel}
+\everymath{\displaystyle}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage{wasysym}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usepackage{tkz-tab}
+\usepackage[tikz]{bclogo}
+\usepackage{tcolorbox}
+\usepackage{shadethm}
+\usepackage{thmtools}
+%\usepackage[S,cut=false, underline=false]{thmbox}
+\usepackage[M,cut=false, underline=false, thickness=0pt]{thmbox}
+
+
+\newcounter{nexercice}
+\setcounter{nexercice}{3}
+
+\newenvironment{exercice}{
+\refstepcounter{nexercice}
+\begin{small}\noindent \Ovalbox{\textbf{\textsf{Exercice } \arabic{nexercice} :}}\hskip 2mm}{\end{small}\vskip 0.5cm}
+
+
+\begin{document}
+\begin{exercice}
+\begin{enumerate}
+\item Soit $x\in \mathbb{R}_+,\ \forall n\in \mathbb{N}^*,\ n^{3/2}\dfrac{x}{n^2+x^2} \underset{n\to +\infty}{\sim} \dfrac{x}{\sqrt{n}} \underset{n\to +\infty}{\longrightarrow} 0$. Donc par critère de Riemann, $\sum_{n\geq 1} u_n(x)$ converge.\\ Ainsi $\sum_{n\geq 1} u_n$ converge simplement sur $\mathbb{R}_+$.
+\item Soit $n\in \mathbb{N}^*,\ \forall x\in \mathbb{R}_+,\ u^{\prime}_{n}(x)=\dfrac{n^2+x^2-2x^2}{{(n^2+x^2)}^2}=\dfrac{n^2-x^2}{{(n^2+x^2)}^2}$.\\ \\On a les variations suivantes :
+\begin{flushleft}
+\begin{tikzpicture}
+\tkzTab[lgt=4,espcl=4] %Largeurs des deux colonnes
+{ $x$  / 1,  Signe de $u^{\prime}_{n}(x)$ / 1, Variations de $u_n$ / 2} %Titres des lignes / sur combien de lignes les écrire
+{ $0$ , $n$ ,$+\infty$} %Valeurs première ligne
+{ ,+,z,-,} %Signes + valeurs numériques et z donne 0 avec des pointillés
+{ -/$0$ , +/$\dfrac{1}{2n}$ , -/ $0$} %Variation / valeur
+\end{tikzpicture}
+\end{flushleft}
+Donc $\underset{x\in \mathbb{R}_+}{\sup} \lvert u_n(x)\rvert =\dfrac{1}{2n}$.\\
+Comme la série $\sum \dfrac{1}{2n}$ est une série de Riemann divergente, $\sum u_n$ ne converge pas normalement sur $\mathbb{R}_+$.
+\item Soit $a>0$, on a\\
+$\forall n\in \mathbb{N}^*,\ \forall x\in [0,a],\ \lvert u_n(x)\rvert = \dfrac{x}{n^2+x^2} \leq \dfrac{a}{n^2}$.\\
+Puisque $\sum \dfrac{a}{n^2}$ est une série de Riemann convergente ($2>1$), on en déduit que $\sum u_n$ converge normalement sur $[0,a]$.
+\end{enumerate}
+\end{exercice}
+\end{document}
