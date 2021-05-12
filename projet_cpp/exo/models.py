@@ -6,10 +6,14 @@ from django.urls import reverse
 
 
 class Chapitre(models.Model):
-    annee = models.CharField(max_length=2, choices = [('1A', 'Première année'),('2A', 'Deuxième année')])
+    annee = models.CharField(max_length=2, choices = [('1A', 'Première année'),
+        ('2A', 'Deuxième année')])
     matiere = models.CharField(max_length=2, choices = [('M', 'Maths'),('C',
         'Chimie'), ('P', 'Physique')])
     nom = models.CharField(max_length=200, null=False)
+
+    def __str__(self):
+        return self.matiere
 
 
 class Exercice(models.Model):

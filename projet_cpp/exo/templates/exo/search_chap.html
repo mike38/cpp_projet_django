@@ -3,11 +3,18 @@
 {% block content %}
 	<center>
 	{% if searched %}
-		<h3>Vous avez recherché <em>{{ searched }}</em></h3>
+		<h3>Résultats de la recherche : <em>{{ searched }}</em></h3>
+		<!--<br/> searched.count résultats-->
+		<br/>
+	</center>
+		{% for chapitres in chapitres %}
+			<ul>
+				<li><a href="#">{{ chapitres }} - {{ chapitres.matiere }}
+			({{ chapitres.annee }})</a></li>
+			</ul>
+		{% endfor %}
 
 	{% else %}
 		<h3>Vous n'avez rien recherché ! Try again ;-)</h3>
 	{% endif %}
-	</center>
-
 {% endblock %}

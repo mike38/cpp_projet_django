@@ -19,12 +19,23 @@ def detail(request, exercice_id):
     return render(request, 'exo/detail.html', {'exercice': exercice,
     	'fichiers': Fichier.objects.filter(exercice_id=exercice_id)},)
 
+def all_1A(request):
+	prem_list = Chapitre.objects.filter(annee='1A')
+	return render(request, 'exo/1A.html', {'prem_list' : prem_list})
+
+def all_2A(request):
+	deux_list = Chapitre.objects.filter(annee='2A')
+	mat_list = Chapitre.objects.all()
+	return render(request, 'exo/2A.html', {'deux_list' : deux_list})
+
 
 def search_chap(request):
 	#exercice = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_chap', ''))
 	#return render_to_response('')
 	if request.method =="POST":
 		searched = request.POST.get('searched')
-		return render(request, 'exo/search_chap.html', {'searched' : searched})
+		chapitres = Chapitre.objects.filter(nom__contains=searched)
+		return render(request, 'exo/search_chap.html', {'searched' : searched,
+			'chapitres' : chapitres})
 	return render(request, 'exo/search_chap.html')
 
