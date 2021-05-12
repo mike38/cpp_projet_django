@@ -5,11 +5,14 @@
   <ul>
     {% for fichier in fichiers %}
 		{% if fichier.format == "i" %}
-			<img src="{{ fichier.file.url }}" alt="énoncé"/ width="750">
+			<img src="{{ fichier.file.url }}" alt="énoncé" width="750"><br/>
 		{% else %}
-			<a href="{{ fichier.download }}">{{ fichier.get_format_display }}</a>
+			<a href="{{ fichier.file.url }}">{{ fichier.get_format_display }}</a>
 		{% endif %}
 	{% endfor %}
   </ul>
+
+  <p><a href="{% url 'newformat' %}">Ajouter un format</a></p>
+  <p><a href="{% url 'home' %}">Retour à la page d'accueil</a></p>
   
 {% endblock %}
