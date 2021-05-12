@@ -2,15 +2,20 @@
 
 {% block content %}
 	<h1>2A</h1>
-  	<h6>Voici les exercices disponibles pour les 2A, enjoy !</h6>
+  	<h6>Voici les exercices disponibles pour les 2A, enjoy ! {{ mat_list }}</h6>
   		{% if deux_list.count == 0 %}
 	  		Aucun exercice ! Patientez un peu, ils arrivent bientôt :-)
 	  	{% endif %}
-   		{% for chapitre in deux_list %}
-  			<strong>{{ chapitre.matiere }}</strong>
-  			<ul>
-  				<li>{{ chapitre.nom }}</li>
-  				
+	{% for chapitre in deux_list %}
+  		<div class="card">
+		  <h4 class="card-header">
+		  {{ chapitre.matiere }}</h4>
+		  <div class="card-body">
+		    <h6 class="card-title"><ul><li>{{ chapitre.nom }}</li></ul></h6>
+		  </div>
+		</div><br/>
+	{% endfor %}
+	
   					<!--<ol>-->
   						<!--{% for chapitre in deux_list %}-->
   							<!--<li>-->
@@ -18,6 +23,5 @@
   							<!--</li>-->
   						<!--{% endfor %}-->
   					<!--</ol>-->
-  			</ul>
-  		{% endfor %}
+  		
 {% endblock %}

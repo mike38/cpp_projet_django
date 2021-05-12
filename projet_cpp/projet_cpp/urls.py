@@ -22,9 +22,7 @@ from exo import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('exo.urls')),
-    #path('search/', include('haystack.urls')),
     path('search_chap', views.search_chap, name='search-chap'),
-    ##path('search/', 'exo.views.search_chap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -8,12 +8,12 @@ from django.urls import reverse
 class Chapitre(models.Model):
     annee = models.CharField(max_length=2, choices = [('1A', 'Première année'),
         ('2A', 'Deuxième année')])
-    matiere = models.CharField(max_length=2, choices = [('M', 'Maths'),('C',
-        'Chimie'), ('P', 'Physique')])
+    matiere = models.CharField(max_length=40 , choices = [('Maths', 'Maths'),('Chimie','Chimie'), ('Physique', 'Physique')]
+        )
     nom = models.CharField(max_length=200, null=False)
 
     def __str__(self):
-        return self.matiere
+        return self.nom #+ ' (' + self.matiere + ')'
 
 
 class Exercice(models.Model):
@@ -23,6 +23,9 @@ class Exercice(models.Model):
 
     def get_absolute_url(self):
         return reverse('exercice-details', args=[str(self.id)])
+
+    def __str__(self):
+        return self.nom + ' (' + self.chapitre.nom + ')'
 
 
 class Fichier(models.Model):
@@ -41,8 +44,12 @@ class Fichier(models.Model):
     #def supprimer(self): #fonction qui permettra de supprimer des exos
 
 
-    #def __str__(self):
-    #    return self.title
+    def __str__(self):
+        return self.exercice.nom + ' (' + self.exercice.chapitre.matiere + \
+            self.exercice.chapitre.annee + ' - ' + self.exercice.chapitre.nom + \
+            ', ' + self.format + ')'
+        #return self.exercice.nom + ' (' +
+         #   self.format + ')'
 
 
 class Utilisation(models.Model):
@@ -51,3 +58,9 @@ class Utilisation(models.Model):
     exercice = models.ForeignKey(Exercice, related_name = 'utilisation',
         on_delete = models.CASCADE)
     correction = models.BooleanField()
+
+
+    def __str__(self):
+        return self.exercice.nom + ' (' + self.type + ',' + str(self.correction) + ')'
+
+

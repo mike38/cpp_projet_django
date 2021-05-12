@@ -3,13 +3,16 @@
 {% block content %}
 	<h1>1A</h1>
   	<h6>Voici les exercices disponibles pour les 1A, enjoy !</h6>
-  	 {% if prem_list.count == 0 %}
-	  	Aucun exercice ! Patientez un peu, ils arrivent bientôt :-)
-	 {% endif %}
-  	 {% for chapitre in deux_list %}
-  		<strong>{{ chapitre.matiere }}</strong>
-  		<ul>
-  			<li>{{ chapitre.nom }}</li>
-  		</ul>
-  	{% endfor %}
+  		{% if prem_list.count == 0 %}
+	  		Aucun exercice ! Patientez un peu, ils arrivent bientôt :-)
+		{% endif %}
+  	{% for chapitre in prem_list %}
+  		<div class="card">
+		  <h4 class="card-header">
+		  {{ chapitre.matiere }}</h4>
+		  <div class="card-body">
+		    <h6 class="card-title"><ul><li>{{ chapitre.nom }}</li></ul></h6>
+		  </div>
+		</div><br/>
+	{% endfor %}
 {% endblock %}

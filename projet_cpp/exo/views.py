@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Exercice, Chapitre, Fichier, Utilisation
 from django.views import generic
 from django.shortcuts import get_object_or_404
@@ -27,7 +27,7 @@ def all_1A(request):
 
 def all_2A(request):
 	deux_list = Chapitre.objects.filter(annee='2A')
-	mat_list = Chapitre.objects.all()
+	mat_list = Chapitre.objects.filter(matiere__contains='')
 	return render(request, 'exo/2A.html', {'deux_list' : deux_list})
 
 
@@ -51,3 +51,9 @@ def upload_fichier(request,):
 	else:
 		form = FichierForm()
 	return render(request, 'exo/up_fichier.html', {'form': form,})
+
+
+def supp_ex(requst, exercice_id):
+	exercice = Exercice.objects.get(pk=exercice_id)
+	exercice.delete()
+	return redirect('/exercices/')
