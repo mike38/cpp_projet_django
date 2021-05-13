@@ -6,8 +6,13 @@
     {% for fichier in fichiers %}
 		{% if fichier.format == "i" %}
 			<img src="{{ fichier.file.url }}" alt="énoncé" width="750"><br/>
-		{% else %}
-			<a href="{{ fichier.file.url }}">{{ fichier.get_format_display }}</a>
+		{% elif fichier.format == "p" %}
+		<br/>
+		<div class="d-grid gap-2 d-md-block">
+			  <a href="{{ fichier.file.url }}" class="btn btn-outline-light">{{ fichier.get_format_display }}</a>
+  		{% elif fichier.format == "t" %}
+  			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">{{ fichier.get_format_display }}</a>
+  		</div>
 		{% endif %}
 	{% endfor %}
   </ul>

@@ -14,7 +14,7 @@ def home(request):
 
 class ExerciceListView(generic.ListView):
     model = Exercice
-    paginate_by = 10
+    paginate_by = 2
 
 def detail(request, exercice_id):
     exercice = get_object_or_404(Exercice, pk=exercice_id)
@@ -22,11 +22,11 @@ def detail(request, exercice_id):
     	'fichiers': Fichier.objects.filter(exercice_id=exercice_id)},)
 
 def all_1A(request):
-	prem_list = Chapitre.objects.filter(annee='1A')
+	prem_list = Chapitre.objects.filter(annee='1A').order_by('matiere', 'nom')
 	return render(request, 'exo/1A.html', {'prem_list' : prem_list})
 
 def all_2A(request):
-	deux_list = Chapitre.objects.filter(annee='2A')
+	deux_list = Chapitre.objects.filter(annee='2A').order_by('matiere', '-nom')
 	mat_list = Chapitre.objects.filter(matiere__contains='')
 	return render(request, 'exo/2A.html', {'deux_list' : deux_list})
 
