@@ -13,5 +13,11 @@
   </ul>
   {% else %}
     <p>Il n'y a pas d'exercices dans le catalogue.</p>
-  {% endif %} 
+  {% endif %}
+
+  <div class="card-footer text-muted">
+  	<a href="{% url 'new_ex' %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
+  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+  </div>
+
 {% endblock %}

@@ -9,5 +9,6 @@ urlpatterns = [
     path('2A', views.all_2A, name="2A"),
     path('format/' , views.upload_fichier, name='newformat'),
     path('supp_ex/<int:exercice_id>', views.supp_ex, name='supp_ex'),
+    path('addexercice/', views.add_ex, name='new_ex'),
     
 ]

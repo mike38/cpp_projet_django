@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from datetime import date
 from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
-from .forms import FichierForm
+from .forms import FichierForm, ExerciceForm
 from django.http import HttpResponseRedirect
 
 
@@ -42,18 +42,32 @@ def search_chap(request):
 	return render(request, 'exo/search_chap.html')
 
 
-def upload_fichier(request,):
+def upload_fichier(request):
 	if request.method == "POST":
 		form = FichierForm(request.POST , request.FILES)
 		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect('/exercices/')
+			fichier = form.save(commit = False)
+			fichier.save()
+			return redirect('exercice-details', exercice_id = fichier.exercice.pk)
 	else:
 		form = FichierForm()
 	return render(request, 'exo/up_fichier.html', {'form': form,})
 
 
-def supp_ex(requst, exercice_id):
+def supp_ex(request, exercice_id):
 	exercice = Exercice.objects.get(pk=exercice_id)
 	exercice.delete()
 	return redirect('/exercices/')
+
+def add_ex(request):
+	if request.method == "POST":
+		form = ExerciceForm(request.POST)
+		if form.is_valid():
+			exercice = form.save(commit=False)
+			exercice.save()
+			return redirect('exercice-details', exercice_id = exercice.pk)
+	else:
+		form = ExerciceForm()
+	return render(request, 'exo/new_ex.html', {'form': form,})
+
+	
