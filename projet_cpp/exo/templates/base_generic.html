@@ -140,6 +140,8 @@ $('#menu > a').click(function(){
               {% block content %}
               {% endblock %}
             </div>
+            <br/>
+            <br/>
              {% block pagination %}
                 {% if is_paginated %}
                     <nav aria-label="Page navigation example">
@@ -186,7 +188,6 @@ $('#menu > a').click(function(){
                         </li>
                       </ul>
                     </nav>
-
                 {% endif %}
               {% endblock %} 
          </div>

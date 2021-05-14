@@ -8,11 +8,13 @@ from django.urls import reverse
 class Chapitre(models.Model):
     annee = models.CharField(max_length=2, choices = [('1A', 'Première année'),
         ('2A', 'Deuxième année')])
-    matiere = models.CharField(max_length=40 , choices = [('Maths', 'Maths'),('Chimie','Chimie'), ('Physique', 'Physique')]
+    matiere = models.CharField(max_length=40 , choices = [('Maths', 'Maths'),('Chimie','Chimie'),
+        ('Physique', 'Physique')]
         )
     nom = models.CharField(max_length=200, null=False)
-    numero = models.IntegerField(null=True, help_text="Vous pouvez numéroter le chapitre pour permettre \
-        un classement dans l'ordre du programme (facultatif)")
+    numero = models.IntegerField(null=True, help_text="Vous pouvez numéroter le chapitre/module \
+        pour permettre un classement dans l'ordre du programme (recommandé, \
+        la valeur par défaut est 1)", default=1)
 
     def __str__(self):
         return self.nom #+ ' (' + self.matiere + ')'
@@ -54,10 +56,11 @@ class Fichier(models.Model):
 
 
 class Utilisation(models.Model):
-    date = models.DateTimeField()
+    #date = models.DateTimeField()
     type = models.CharField(max_length = 200, null = False)
     exercice = models.ForeignKey(Exercice, related_name = 'utilisation',
         on_delete = models.CASCADE)
+    fichier = models.ManyToManyField(Fichier, blank=True)
     correction = models.BooleanField()
 
 
