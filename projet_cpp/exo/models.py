@@ -11,6 +11,8 @@ class Chapitre(models.Model):
     matiere = models.CharField(max_length=40 , choices = [('Maths', 'Maths'),('Chimie','Chimie'), ('Physique', 'Physique')]
         )
     nom = models.CharField(max_length=200, null=False)
+    numero = models.IntegerField(null=True, help_text="Vous pouvez numéroter le chapitre pour permettre \
+        un classement dans l'ordre du programme (facultatif)")
 
     def __str__(self):
         return self.nom #+ ' (' + self.matiere + ')'
@@ -48,8 +50,7 @@ class Fichier(models.Model):
         return self.exercice.nom + ' (' + self.exercice.chapitre.matiere + \
             self.exercice.chapitre.annee + ' - ' + self.exercice.chapitre.nom + \
             ', ' + self.format + ')'
-        #return self.exercice.nom + ' (' +
-         #   self.format + ')'
+
 
 
 class Utilisation(models.Model):
