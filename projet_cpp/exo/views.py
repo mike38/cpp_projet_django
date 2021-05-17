@@ -27,7 +27,9 @@ def all_1A(request):
 
 def all_2A(request):
 	deux_list = Chapitre.objects.filter(annee='2A').order_by('matiere', 'numero')
-	mat_list = Chapitre.objects.all()
+	# mat_list = []
+	# for i in range (0,deux_list.count) :
+	# 	mat_list.append(deux_list.i.matiere)
 	return render(request, 'exo/2A.html', {'deux_list' : deux_list})
 
 
@@ -37,9 +39,11 @@ def search_chap(request):
 	if request.method =="POST":
 		searched = request.POST.get('searched')
 		chapitres = Chapitre.objects.filter(nom__contains=searched)
+		exercices = Exercice.objects.filter(nom__contains=searched)
 		return render(request, 'exo/search_chap.html', {'searched' : searched,
-			'chapitres' : chapitres})
+			'chapitres' : chapitres, 'exercices' : exercices})
 	return render(request, 'exo/search_chap.html')
+
 
 
 def upload_fichier(request):

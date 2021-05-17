@@ -7,13 +7,26 @@
 		<!--<br/> searched.count résultats-->
 		<br/>
 	</center>
+	<h4>Chapitres :</h4>
+		{% if chapitres.count == 0 %}
+				<em>Aucun résultat</em>
+		{% endif %}
 		{% for chapitres in chapitres %}
 			<ul>
-				<li><a href="{{ chapitre.get_absolute_url }}">{{ chapitres }} - {{ chapitres.matiere }}
+				<li><a href="{{ chapitres.get_absolute_url }}">{{ chapitres }} - {{ chapitres.matiere }}
 			({{ chapitres.annee }})</a></li>
 			</ul>
 		{% endfor %}
-
+	<p><br/></p>
+	<h4>Exercices :</h4>
+		{% if exercices.count == 0 %}
+				<em>Aucun résultat</em>
+		{% endif %}
+		{% for exercices in exercices %}
+			<ul>
+				<li><a href="{{ exercices.get_absolute_url }}">{{ exercices }}  </a></li>
+			</ul>
+		{% endfor %}
 	{% else %}
 		<h3>Vous n'avez rien recherché ! Try again ;-)</h3>
 	{% endif %}

@@ -96,3 +96,27 @@ h2 {
 	list-style: circle;
 	color: white;
 }
+
+.titre h1 a {
+	color: #FFFFFF;
+    font-size: 46pt;
+    text-decoration: none;
+    margin-bottom:2px;
+    font-weight:400;
+    font-style:normal;
+    text-transform:none
+
+
+}
+
+.titre h5 {
+	font-size: 12pt;
+    text-decoration: none;
+    margin-bottom:4px;
+    font-weight:500;
+    font-style:italic;
+    text-transform:none
+    color: #DADDE0;
+}
+
+

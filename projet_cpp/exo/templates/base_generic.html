@@ -146,14 +146,15 @@ element.style {
               {% csrf_token %}
               <svg width="25" height="25" class="search-icon" role="img" viewBox="2 9 20 5" focusable="false" aria-label="Search">
               <path class="search-icon-path" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"> </path></svg>
-              <input class="barre-recherche" type="search" placeholder="Rechercher un chapitre..." aria-label="Recherche" name="searched">
+              <input class="barre-recherche" type="search" placeholder="Rechercher un exercice..." aria-label="Recherche" name="searched">
               <button class="btn btn-outline-primary" type="submit">Rechercher</button>
             </form>
           </div>
         </div>
       </div>
+      <div class="titre">
       <h1><a href="/">ExoCpp</a></h1>
-      <h5>Le site d'exercices de la Prépa des INP de Grenoble</h5>
+      <h5>Le site d'exercices de la Prépa des INP de Grenoble</h5></div>
       <!--<div class="annee">
         <p><a href="/">1A</a>
         <a href="/">2A</a></p>
@@ -233,19 +234,19 @@ element.style {
           <div id="menu">
     <h4>1A <a href="{% url '1A' %}">{% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
   <!--<div style="display: none">--> <!-- pour que ce soit replié par défaut -->
-    <div>
-        <h4><a href="">Maths</a><br /></h4>
-        <h4><a href="">Physique</a><br /></h4>
-        <h4><a href="">Chimie</a><br /></h4>
-    </div>
+    <ul class="puces-navbar">
+        <li><h4><a href="">Maths</a></h4></li>
+        <li><h4><a href="">Physique</a></h4></li>
+        <li><h4><a href="">Chimie</a></h4></li>        
+    </ul>
     <br/>
     <h4><a href="{% url '2A' %}">2A {% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
     <!--<div style="display: none">-->
-    <div>
-        <h4><a href="">Maths</a><br /></h4>
-        <h4><a href="">Physique</a><br /></h4>
-        <h4><a href="">Chimie</a><br /></h4>        
-    </div>
+    <ul class="puces-navbar">
+        <li><h4><a href="">Maths</a></h4></li>
+        <li><h4><a href="">Physique</a></h4></li>
+        <li><h4><a href="">Chimie</a></h4></li>        
+    </ul>
 </div>
 </ul>
 
