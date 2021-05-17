@@ -6,15 +6,15 @@
   		{% if deux_list.count == 0 %}
 	  		Aucun exercice ! Patientez un peu, ils arrivent bientôt :-)
 	  	{% endif %}
-	{% for chapitre in deux_list %}
-  		<div class="card">
-		  <h4 class="card-header">
-		  {{ chapitre.matiere }}</h4>
-		  <div class="card-body">
-		    <h6 class="card-title"><ul><li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.nom }}</a></li></ul></h6>
-		  </div>
-		</div><br/>
-	{% endfor %}
+		{% for chapitre in deux_list %}
+	  		<div class="card">
+			  <h4 class="card-header">
+			  {{ chapitre.matiere }}</h4>
+			  <div class="card-body">
+			    <h6 class="card-title"><ul><li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.nom }}</a></li></ul></h6>
+			  </div>
+			</div><br/>
+		{% endfor %}
 	
   					<!--<ol>-->
   						<!--{% for chapitre in deux_list %}-->
