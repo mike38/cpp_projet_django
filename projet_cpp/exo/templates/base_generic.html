@@ -168,11 +168,11 @@ element.style {
             <p><h4><a href="{% url 'home' %}">Chimie</a></h4></p>-->
           {% block sidebar %}
           <br/>
-          <ul>
+          <ul class="puces-navbar">
               <li><h4><a href="{% url 'home' %}">Accueil</a></h4></li>
               <li><h4><a href="{% url 'exercices' %}">Tous les exercices</a></h4></li>
               <li><h4><a href="{% url 'chapitres' %}">Tous les chapitres</a></h4></li>
-              <li><h4><a>Exercices par année :</a></h4></li>
+              <li><h4><a href="{% url '1A' %}">Exercices par année : {% include './exo/icons/dice-1-fill.svg' %}</a> / <a href="{% url '2A' %}">{% include './exo/icons/dice-2-fill.svg' %}</a></h4></li>
             <!-- <li><h4><a href="{% url '1A' %}">1A</a></h4>
               <ul>
                 <li><p><h4><a href="#">Maths</a></h4></p>
@@ -231,15 +231,15 @@ element.style {
           {% endblock %}
 
           <div id="menu">
-    <h4>1A <a>{% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
-  <!--<div style="display: none">-->
+    <h4>1A <a href="{% url '1A' %}">{% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
+  <!--<div style="display: none">--> <!-- pour que ce soit replié par défaut -->
     <div>
         <h4><a href="">Maths</a><br /></h4>
         <h4><a href="">Physique</a><br /></h4>
         <h4><a href="">Chimie</a><br /></h4>
     </div>
     <br/>
-    <h4>2A <a>{% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
+    <h4><a href="{% url '2A' %}">2A {% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
     <!--<div style="display: none">-->
     <div>
         <h4><a href="">Maths</a><br /></h4>

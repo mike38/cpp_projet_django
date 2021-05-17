@@ -52,7 +52,10 @@ h4 a {
     color: #FFFFFF;
     font-size: 14pt;
     text-decoration: none;
-    margin-bottom:6px}
+    margin-bottom:4px;
+    font-weight:400;
+    font-style:normal;
+    text-transform:none
 }
 
 
@@ -88,3 +91,8 @@ h2 {
     background: none;
 }
 
+
+.puces-navbar {
+	list-style: circle;
+	color: white;
+}

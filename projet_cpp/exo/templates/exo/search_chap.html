@@ -9,7 +9,7 @@
 	</center>
 		{% for chapitres in chapitres %}
 			<ul>
-				<li><a href="#">{{ chapitres }} - {{ chapitres.matiere }}
+				<li><a href="{{ chapitre.get_absolute_url }}">{{ chapitres }} - {{ chapitres.matiere }}
 			({{ chapitres.annee }})</a></li>
 			</ul>
 		{% endfor %}
