@@ -50,8 +50,9 @@ h4 a {
 .col-sm-2 h4 a:visited,
 .col-sm-2 h4 a:active {
     color: #FFFFFF;
-    font-size: 22pt;
+    font-size: 14pt;
     text-decoration: none;
+    margin-bottom:6px}
 }
 
 

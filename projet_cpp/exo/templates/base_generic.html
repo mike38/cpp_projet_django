@@ -167,11 +167,13 @@ element.style {
             <p><h4><a href="{% url 'home' %}">Physique</a></h4></p>
             <p><h4><a href="{% url 'home' %}">Chimie</a></h4></p>-->
           {% block sidebar %}
+          <br/>
           <ul>
               <li><h4><a href="{% url 'home' %}">Accueil</a></h4></li>
               <li><h4><a href="{% url 'exercices' %}">Tous les exercices</a></h4></li>
               <li><h4><a href="{% url 'chapitres' %}">Tous les chapitres</a></h4></li>
-            <li><h4><a href="{% url '1A' %}">1A</a></h4>
+              <li><h4><a>Exercices par année :</a></h4></li>
+            <!-- <li><h4><a href="{% url '1A' %}">1A</a></h4>
               <ul>
                 <li><p><h4><a href="#">Maths</a></h4></p>
             <div class="liste-chap">
@@ -224,22 +226,28 @@ element.style {
               </ul>
             </div></li>
               </ul>
-              </li>       
-          </ul>
+              </li>        -->
+          
           {% endblock %}
 
           <div id="menu">
-    <h4>1A</h4><br/>
-    <div style="display: none">
+    <h4>1A <a>{% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
+  <!--<div style="display: none">-->
+    <div>
         <h4><a href="">Maths</a><br /></h4>
         <h4><a href="">Physique</a><br /></h4>
+        <h4><a href="">Chimie</a><br /></h4>
     </div>
-    <h4>2A</h4><br/>
-    <div style="display: none">
+    <br/>
+    <h4>2A <a>{% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
+    <!--<div style="display: none">-->
+    <div>
         <h4><a href="">Maths</a><br /></h4>
         <h4><a href="">Physique</a><br /></h4>
+        <h4><a href="">Chimie</a><br /></h4>        
     </div>
 </div>
+</ul>
 
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
