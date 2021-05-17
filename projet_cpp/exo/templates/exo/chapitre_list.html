@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>Liste des chapitres</h1>
+  {% if chapitre_list %}
+  <ul>
+    {% for chapitre in chapitre_list %}
+      <li>
+        <a href="{{ chapitre.get_absolute_url }}">{{ chapitre.nom }}</a> ({{ chapitre.matiere }} - {{ chapitre.annee}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>Il n'y a pas de chapitres dans le catalogue.</p>
+  {% endif %}
+
+  <div class="card-footer text-muted">
+  	<a href="{% url 'new_chap' %}" class="btn btn-outline-success btn-sm">Ajouter un chapitre</a>
+  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+  </div>
+
+{% endblock %}

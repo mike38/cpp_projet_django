@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from datetime import date
 from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
-from .forms import FichierForm, ExerciceForm
+from .forms import FichierForm, ExerciceForm, ChapitreForm
 from django.http import HttpResponseRedirect
 
 
@@ -70,4 +70,37 @@ def add_ex(request):
 		form = ExerciceForm()
 	return render(request, 'exo/new_ex.html', {'form': form,})
 
+def add_chap(request):
+	if request.method == "POST":
+		form = ChapitreForm(request.POST)
+		if form.is_valid():
+			chapitre = form.save(commit = False)
+			chapitre.save()
+			return redirect('chapitre-details', chapitre_id = chapitre.pk)
+	else:
+		form = ChapitreForm()
+	return render(request, 'exo/new_chap.html', {'form': form,})
+
+def chap_detail(request, chapitre_id):
+	chapitre = get_object_or_404(Chapitre, pk = chapitre_id)
+	return render(request, 'exo/chap_listexo.html', {'chapitre': chapitre, 
+	'exercices': Exercice.objects.filter(chapitre_id=chapitre_id),})
+
+class ChapitreListView(generic.ListView):
+    model = Chapitre
+    paginate_by = 4
+    ordering = ['nom']
+
+
+def exercice_edit(request, exercice_id):
+	exercice = get_object_or_404(Exercice, pk=exercice_id)
+	if request.method == "POST":
+		form = ExerciceForm(request.POST, instance=exercice)
+		if form.is_valid():
+			exercice = form.save(commit=False)
+			exercice.save()
+			return redirect('exercice-details', exercice_id = exercice.pk)
+	else:
+		form = ExerciceForm(instance=exercice)
+	return render(request, 'exo/edit_ex.html', {'form': form})
 	

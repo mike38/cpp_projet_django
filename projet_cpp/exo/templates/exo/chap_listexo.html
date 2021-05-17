@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h1>{{ chapitre.matiere }} - Chapitre n°{{chapitre.numero}} : {{ chapitre.nom }}</h1>
+  	<h6>Voici les exercices disponibles pour ce chapitre !</h6>
+  		{% if exercices.count == 0 %}
+	  		Aucun exercice ! Patientez un peu, ils arrivent bientôt :-)
+		{% endif %}
+  	{% for exercice in exercices %}
+      <li>
+        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a>
+      </li>
+    {% endfor %}
+
+    <div class="card-footer text-muted">
+        <a href="{% url 'new_ex' %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+    </div>
+
+{% endblock %}

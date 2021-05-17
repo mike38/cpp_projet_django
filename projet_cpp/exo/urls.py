@@ -10,5 +10,9 @@ urlpatterns = [
     path('format/' , views.upload_fichier, name='newformat'),
     path('supp_ex/<int:exercice_id>', views.supp_ex, name='supp_ex'),
     path('addexercice/', views.add_ex, name='new_ex'),
+    path('chapitre/<int:chapitre_id>', views.chap_detail, name='chapitre-details'),
+    path('addchapitre/', views.add_chap, name='new_chap'),
+    path('chapitres/', views.ChapitreListView.as_view(), name='chapitres'),
+
     
 ]

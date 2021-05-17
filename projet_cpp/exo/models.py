@@ -19,6 +19,9 @@ class Chapitre(models.Model):
     def __str__(self):
         return self.nom #+ ' (' + self.matiere + ')'
 
+    def get_absolute_url(self):
+        return reverse('chapitre-details', args=[str(self.id)])
+
 
 class Exercice(models.Model):
     nom = models.CharField(max_length=200, null=False)
@@ -40,6 +43,7 @@ class Fichier(models.Model):
         on_delete = models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
+    correction = models.CharField(max_length=3, choices = [('Oui', 'Oui'), ('Non', 'Non')], default='Non')
 
     def ajouter(self): #fonction qui permettra d'ajouter des exos
         self.published_date = timezone.now()
