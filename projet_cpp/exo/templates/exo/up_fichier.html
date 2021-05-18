@@ -5,8 +5,10 @@
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Enregistrer le fichier</button>
+    <div class="col-12">
+    <button type="submit" class="btn btn-warning">Enregistrer le fichier</button>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+  </div>
   </form>
 
-  <p><a href="{% url 'home' %}">Retour à la page d'accueil</a></p>
 {% endblock %}

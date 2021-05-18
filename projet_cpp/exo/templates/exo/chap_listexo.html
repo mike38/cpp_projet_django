@@ -10,11 +10,36 @@
       <li>
         <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a>
       </li>
+        {% for fichier in fichiers %}
+          {% if fichier.exercice.chapitre == exercice.chapitre and fichier.correction == "Oui" %}
+            <a href="{{ fichier.file.url }}">{{ "Voir la correction" }}</a>
+          {% elif fichier.exercice.chapitre == exercice.chapitre and fichier.format == "i" %}
+            <img src="{{ fichier.file.url }}" alt="énoncé" width="750"><br/>
+          {% elif fichier.exercice.chapitre == exercice.chapitre and fichier.format == "p" %}
+          <br/>
+          <div class="d-grid gap-2 d-md-block">
+              <a href="{{ fichier.file.url }}" class="btn btn-outline-light">{{ fichier.get_format_display }}</a>
+            {% elif fichier.exercice.chapitre == exercice.chapitre and fichier.format == "t" %}
+              <a href="{{ fichier.file.url }}" class="btn btn-outline-info">{{ fichier.get_format_display }}</a>
+            </div>
+          {% endif %}
+        {% endfor %}
     {% endfor %}
 
-    <div class="card-footer text-muted">
+
+    <!-- <div class="card-footer text-muted">
         <a href="{% url 'new_ex' %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
         <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+    </div> -->
+
+    <div class="card">
+    <div class="card-header">
+      <h4>Actions</h4>
     </div>
+    <div class="card-body">
+    <a href="{% url 'new_ex' %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+    </div>
+  </div>
 
 {% endblock %}

@@ -174,3 +174,7 @@ html, body {
 h6 {
 	line-height: 50%;
 }
+
+.card {
+	margin-top: 40px;
+}

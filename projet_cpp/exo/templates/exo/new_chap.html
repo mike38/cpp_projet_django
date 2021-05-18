@@ -3,10 +3,12 @@
 {% block content %}
   <h1>Ajouter un nouveau chapitre</h1>
   <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Enregistrer le chapitre</button>
+    <div class="col-12">
+    <button type="submit" class="btn btn-warning">Enregistrer le chapitre</button>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+  </div>
   </form>
-
-  <p><a href="{% url 'home' %}">Retour à la page d'accueil</a></p>
 {% endblock %}

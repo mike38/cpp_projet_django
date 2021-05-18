@@ -117,7 +117,8 @@ def add_chap(request):
 def chap_detail(request, chapitre_id):
 	chapitre = get_object_or_404(Chapitre, pk = chapitre_id)
 	return render(request, 'exo/chap_listexo.html', {'chapitre': chapitre, 
-	'exercices': Exercice.objects.filter(chapitre_id=chapitre_id),})
+	'exercices': Exercice.objects.filter(chapitre_id=chapitre_id),
+	'fichiers' : Fichier.objects.all()})
 
 class ChapitreListView(generic.ListView):
     model = Chapitre
