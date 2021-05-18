@@ -5,12 +5,14 @@ from taggit.managers import TaggableManager
 from django.urls import reverse
 
 
+MATIERES = [('Maths', 'Maths'),('Chimie','Chimie'),
+        ('Physique', 'Physique')]
+
+
 class Chapitre(models.Model):
     annee = models.CharField(max_length=2, choices = [('1A', 'Première année'),
         ('2A', 'Deuxième année')])
-    matiere = models.CharField(max_length=40 , choices = [('Maths', 'Maths'),('Chimie','Chimie'),
-        ('Physique', 'Physique')]
-        )
+    matiere = models.CharField(max_length=40 , choices = MATIERES)
     nom = models.CharField(max_length=200, null=False)
     numero = models.IntegerField(null=True, help_text="Vous pouvez numéroter le chapitre/module \
         pour permettre un classement dans l'ordre du programme (recommandé, \

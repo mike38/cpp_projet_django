@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.gstatic.com"> 
-  <link href="https://fonts.googleapis.com/css2?family=Acme&family=Caveat:wght@600&family=Courgette&family=Cuprum:wght@500&family=Montserrat:wght@500&family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Acme&family=Caveat:wght@600&family=Courgette&family=Cuprum:wght@500&family=Montserrat:wght@500&family=Roboto&family=Roboto+Condensed:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
   <!-- Add additional CSS in static file -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
@@ -143,7 +143,7 @@ element.style {
               <li><h4><a href="{% url 'home' %}">Accueil</a></h4></li>
               <li><h4><a href="{% url 'exercices' %}">Tous les exercices</a></h4></li>
               <li><h4><a href="{% url 'chapitres' %}">Tous les chapitres</a></h4></li>
-              <li><h4><a href="{% url '1A' %}">Exercices par année : {% include './exo/icons/dice-1-fill.svg' %}</a> / <a href="{% url '2A' %}">{% include './exo/icons/dice-2-fill.svg' %}</a></h4></li>
+              <li><h4><a href="{% url '1A' %}">Exercices par année :  {% include './exo/icons/dice-1-fill.svg' %}</a> / <a href="{% url '2A' %}">{% include './exo/icons/dice-2-fill.svg' %}</a></h4></li>
           
           {% endblock %}
 
@@ -151,17 +151,17 @@ element.style {
     <h4><a href="{% url '1A' %}">1A {% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
   <!--<div style="display: none">--> <!-- pour que ce soit replié par défaut -->
     <ul class="puces-navbar">
-        <li><h4><a href="">Maths</a></h4></li>
-        <li><h4><a href="">Physique</a></h4></li>
-        <li><h4><a href="">Chimie</a></h4></li>        
+        <li><h4><a href="{% url '1A-maths' %}">Maths</a></h4></li>
+        <li><h4><a href="{% url '1A-physique' %}">Physique</a></h4></li>
+        <li><h4><a href="{% url '1A-chimie' %}">Chimie</a></h4></li>        
     </ul>
     <br/>
     <h4><a href="{% url '2A' %}">2A {% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
     <!--<div style="display: none">-->
     <ul class="puces-navbar">
-        <li><h4><a href="">Maths</a></h4></li>
-        <li><h4><a href="">Physique</a></h4></li>
-        <li><h4><a href="">Chimie</a></h4></li>        
+        <li><h4><a href="{% url '2A-maths' %}">Maths</a></h4></li>
+        <li><h4><a href="{% url '2A-physique' %}">Physique</a></h4></li>
+        <li><h4><a href="{% url '2A-chimie' %}">Chimie</a></h4></li>        
     </ul>
 </div>
 </ul>

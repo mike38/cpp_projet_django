@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Exercice, Chapitre, Fichier, Utilisation
+from .models import Exercice, Chapitre, Fichier, Utilisation, MATIERES
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from datetime import date
@@ -23,14 +23,43 @@ def detail(request, exercice_id):
 
 def all_1A(request):
 	prem_list = Chapitre.objects.filter(annee='1A').order_by('matiere', 'numero')
-	return render(request, 'exo/1A.html', {'prem_list' : prem_list})
+	m_list = Chapitre.objects.filter(annee='1A').filter(matiere='Maths').order_by('numero')
+	p_list = Chapitre.objects.filter(annee='1A', matiere='Physique').order_by('numero')
+	c_list = Chapitre.objects.filter(annee='1A', matiere='Chimie').order_by('numero')
+	return render(request, 'exo/1A.html', {'prem_list' : prem_list, 'm_list' : m_list,
+		'p_list' : p_list, 'c_list' : c_list})
+
+def maths_1A(request):
+	m_list = Chapitre.objects.filter(annee='1A').filter(matiere='Maths').order_by('numero')
+	return render(request, 'exo/1A-maths.html', {'m_list' : m_list})
+
+def phys_1A(request):
+	p_list = Chapitre.objects.filter(annee='1A', matiere='Physique').order_by('numero')
+	return render(request, 'exo/1A-physique.html', {'p_list' : p_list})
+
+def chim_1A(request):
+	c_list = Chapitre.objects.filter(annee='1A', matiere='Chimie').order_by('numero')
+	return render(request, 'exo/1A-chimie.html', {'c_list' : c_list})
 
 def all_2A(request):
 	deux_list = Chapitre.objects.filter(annee='2A').order_by('matiere', 'numero')
-	mat_list = Chapitre.objects.filter(matiere=all)
-	# for i in Chapitre.objects.all():
-	#  	mat_list.append(i.matiere)
-	return render(request, 'exo/2A.html', {'deux_list' : deux_list})
+	m_list = Chapitre.objects.filter(annee='2A').filter(matiere='Maths').order_by('numero')
+	p_list = Chapitre.objects.filter(annee='2A', matiere='Physique').order_by('numero')
+	c_list = Chapitre.objects.filter(annee='2A', matiere='Chimie').order_by('numero')
+	return render(request, 'exo/2A.html', {'deux_list' : deux_list, 'm_list' : m_list,
+		'p_list' : p_list, 'c_list' : c_list})
+
+def maths_2A(request):
+	m_list = Chapitre.objects.filter(annee='2A').filter(matiere='Maths').order_by('numero')
+	return render(request, 'exo/2A-maths.html', {'m_list' : m_list})
+
+def phys_2A(request):
+	p_list = Chapitre.objects.filter(annee='2A', matiere='Physique').order_by('numero')
+	return render(request, 'exo/2A-physique.html', {'p_list' : p_list})
+
+def chim_2A(request):
+	c_list = Chapitre.objects.filter(annee='2A', matiere='Chimie').order_by('numero')
+	return render(request, 'exo/2A-chimie.html', {'c_list' : c_list})
 
 
 def search_chap(request):

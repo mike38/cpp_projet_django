@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+	<h1>Maths 1A</h1>
+		<div class="card">
+			  <h4 class="card-header">Chapitres :</h4>
+			  {% if m_list.count == 0 %}
+	  			Aucun chapitre pour le moment ! Patientez un peu, ils arrivent bientôt :-)
+			  {% endif %}
+			{% for chapitre in m_list %}
+				<div class="card-body">
+			    	<h6 class="card-title"><ul><li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></li></ul></h6>
+			  	</div>
+			{% endfor %}
+		</div>
+{% endblock %}
