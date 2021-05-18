@@ -2,9 +2,9 @@
 
 {% block content %}
 	<h1>1A</h1>
-  	<h6>Voici les exercices disponibles pour les 1A, enjoy !</h6>
+  	<h6>Voici les exercices disponibles pour les 1A, enjoy !</h6><br/>
   		{% if prem_list.count == 0 %}
-	  		Aucun exercice ! Patientez un peu, ils arrivent bientôt :-)
+	  		Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt :-)
 		{% endif %}
 	  	{% for chapitre in prem_list %}
 	  		<div class="card">

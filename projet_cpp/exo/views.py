@@ -27,9 +27,9 @@ def all_1A(request):
 
 def all_2A(request):
 	deux_list = Chapitre.objects.filter(annee='2A').order_by('matiere', 'numero')
-	# mat_list = []
-	# for i in range (0,deux_list.count) :
-	# 	mat_list.append(deux_list.i.matiere)
+	mat_list = Chapitre.objects.filter(matiere=all)
+	# for i in Chapitre.objects.all():
+	#  	mat_list.append(i.matiere)
 	return render(request, 'exo/2A.html', {'deux_list' : deux_list})
 
 

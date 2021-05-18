@@ -2,17 +2,45 @@
     /*padding-right: 20px;*/
     /*padding: 0;*/
     list-style: none;
-    padding-left: 15px;
-    color: #FFFFFF;
+    padding-left: 20px;
 	font-family: 'Cuprum', sans-serif;
+	height: 90%;
+    width:200px;
+    position: fixed;
+    z-index:1;
+    top:0;
+    left:0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px
+}
+
+.sidebar-nav a {
+  padding: 6px 8px 0px 16px;
+  text-decoration: none;
+  color: #818181;
+  font-size: 25px;
+  display: block;
+}
+
+.sidebar-nav a: hover{
+	color: #F1F1F1;
+}
+
+#menu {
+	padding-top: 15px;
+	margin-bottom: 0px;
+/*	padding-bottom: 500px;
+*/
 }
 
 
 .page-header {
+	height: 10%;
+    min-height: 60px;
     background-color: #032955;
     margin-top: 0;
-    margin-bottom: 40px;
-    padding: 20px 20px 20px 40px;
+    padding: 0px 20px 20px 40px;
 }
 
 .page-header h1,
@@ -29,10 +57,17 @@ h1 a, h2 a {
     font-family: 'Caveat', cursive;
 }
 
+
+.page-header h5 {
+	color: #A0B5CE;
+	font-family: 'Caveat', cursive;
+}
+
+
+
 h5 {
 	color: #A0B5CE;
 	font-size: 18pt;
-	font-family: 'Caveat', cursive;
 }
 
 h4 a {
@@ -42,27 +77,30 @@ h4 a {
 
 
 .col-sm-2{
-	background-color: #165399;
+  background-color: #111;
+  padding-top: 20px
+
 }
 
 .col-sm-2 h4,
-.col-sm-2 h4 a,
-.col-sm-2 h4 a:visited,
-.col-sm-2 h4 a:active {
+.col-sm-2 h4 a {
     color: #FFFFFF;
     font-size: 14pt;
     text-decoration: none;
-    margin-bottom:4px;
+    margin-bottom:8px;
     font-weight:400;
     font-style:normal;
     text-transform:none
+
+}
+
+.col-sm-2 h4 a:hover,
+.col-sm-2 h4 a:visited,
+.col-sm-2 h4 a:active {
+	color: #F1F1F1;
 }
 
 
-body {
-    background-color: #D6DADE;
-    color: black; /*  */
-}
 
 h2 {
 	font-size: 32pt;
@@ -70,25 +108,18 @@ h2 {
 }
 
 
+#topbar #search{height:45px; padding:15px 0;display:block; float:right;}
 
 
-#topbar{height:45px; padding:15px 0; float: right}
-#topbar #search{display:block; float:right;}
-
-
-
-.annee {
-	float:right;
-	font-size: 32pt;
-	color: #FFFFFF;
-	font-family: 'Cuprum', sans-serif;
-}
 
 .liste-chap,
-.liste-chap:visited
-.liste-chap:hover {
-    color: white;
+.liste-chap:visited {
+    color: #F1F1F1;
     background: none;
+}
+
+.liste-chap:hover {
+	color: white;
 }
 
 
@@ -101,11 +132,9 @@ h2 {
 	color: #FFFFFF;
     font-size: 46pt;
     text-decoration: none;
-    margin-bottom:2px;
     font-weight:400;
     font-style:normal;
     text-transform:none
-
 
 }
 
@@ -115,8 +144,30 @@ h2 {
     margin-bottom:4px;
     font-weight:500;
     font-style:italic;
-    text-transform:none
-    color: #DADDE0;
+    text-transform:none;
+    font-family: 'Caveat', cursive;
 }
 
 
+html, body {
+	height: 100%
+}
+
+#page {
+    min-height: 100%;
+    position: relative;
+}
+
+
+#bloc-principal {
+    padding-bottom: 100px;
+}
+
+.col-sm-10 {
+	padding-top: 20px;
+}
+
+.page-link, .page-item, .pagination {
+	text-decoration: none;
+	text-transform: none;
+}

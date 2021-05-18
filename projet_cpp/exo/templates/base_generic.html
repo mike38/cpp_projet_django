@@ -21,7 +21,6 @@
 <link rel='dns-prefetch' href='//s.w.org' />
 
 
-
 <link crossorigin="anonymous" rel='stylesheet' id='ls-google-fonts-css'  href='https://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
 
 
@@ -40,16 +39,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .product-info .product_title, .product-info .p
 </style>
 
 
-
-
 <script type='text/javascript'>
 /* <![CDATA[ */
 var LS_Meta = {"v":"5.6.10"};
 /* ]]> */
 </script>
-
-
-
 
 
 <script type='text/javascript'>
@@ -62,13 +56,11 @@ var wc_add_to_cart_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_ur
 <script async defer type='text/javascript' src='https://stats.wp.com/s-202114.js'></script>
 
 
+<link rel="icon" href="https://www.grenoble-inp.fr/medias/photo/logo-groupe-inp-logo-noir-rvb_1453884743910-png?ID_FICHE=602391" />
+<link rel="apple-touch-icon" href="https://www.grenoble-inp.fr/medias/photo/logo-groupe-inp-logo-noir-rvb_1453884743910-png?ID_FICHE=602391" />
+<meta name="msapplication-TileImage" content="https://www.grenoble-inp.fr/medias/photo/logo-groupe-inp-logo-noir-rvb_1453884743910-png?ID_FICHE=602391" />
 
-<link rel="icon" href="https://cdn.futura-sciences.com/buildsv6/images/wide1920/0/8/1/081a65f7d7_117306_canonique-x.jpg" />
-<link rel="apple-touch-icon" href="https://cdn.futura-sciences.com/buildsv6/images/wide1920/0/8/1/081a65f7d7_117306_canonique-x.jpg" />
-<meta name="msapplication-TileImage" content="https://cdn.futura-sciences.com/buildsv6/images/wide1920/0/8/1/081a65f7d7_117306_canonique-x.jpg" />
-
-
-                
+     
 <script type="text/javascript">
   jQuery(document).ready(function($){
 
@@ -86,66 +78,48 @@ var wc_add_to_cart_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_ur
 
 
 <style type="text/css" id="wp-custom-css">
-
-
 .navbar-sidenav .toolbar>a, .navbar-sidenav .toolbar .cart-btn>a {
     color: #20513F;
 }
-
-
-
 element.style {
     padding-top: 70px;
 }
-
 .material-icons.menu:before {
     color: #20513F;
 }
-
 .navbar-sidenav .mobile-menu-toggle.active:after {
     color: #20513F;
 }
-
 .navbar-sidenav .toolbar>a .count, .navbar-sidenav .toolbar>.cart-btn .count {
     background-color: #dbc39e;
 }
-
 .is-form-style input.is-search-input {
     font-size: 14px;
 }
-
 .shop-item .shop-thumbnail {
   background-color:#fff;
 }
-
 .term-description img {
   margin:0 auto;
 }
-
-
-
     </style>
 <!-- fin AJOUT-->
+
 
 
 
 </head>
 
 <body>
+<div id="page">
+<div id="bloc principal">
   <div class="page-header">
       <div class="wrapper col1">
         <div id="topbar">
           <div id="search">
-            <!--<form action="#" method="post">
-              <fieldset>
-                <input type="text" value="Rechercher un exercice&hellip;"  onfocus="this.value=(this.value=='Rechercher un exercice&hellip;')? '' : this.value ;" />
-                <input type="submit" name="go" id="go" value="Recherche" />
-              </fieldset>
-            </form>-->
             <form class="search" method=POST action="{% url 'search-chap' %}">
               {% csrf_token %}
-              <svg width="25" height="25" class="search-icon" role="img" viewBox="2 9 20 5" focusable="false" aria-label="Search">
-              <path class="search-icon-path" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"> </path></svg>
+              {% include './exo/icons/search.svg'%}
               <input class="barre-recherche" type="search" placeholder="Rechercher un exercice..." aria-label="Recherche" name="searched">
               <button class="btn btn-outline-primary" type="submit">Rechercher</button>
             </form>
@@ -155,84 +129,26 @@ element.style {
       <div class="titre">
       <h1><a href="/">ExoCpp</a></h1>
       <h5>Le site d'exercices de la Prépa des INP de Grenoble</h5></div>
-      <!--<div class="annee">
-        <p><a href="/">1A</a>
-        <a href="/">2A</a></p>
-      </div>-->
+
   </div>
+
+
 
   <div class="container-fluid">
     <div class="row">
           <div class="col-sm-2">
-            <!--<p><h4><a href="{% url 'home' %}">Maths</a></h4></p>
-            <p><h4><a href="{% url 'home' %}">Physique</a></h4></p>
-            <p><h4><a href="{% url 'home' %}">Chimie</a></h4></p>-->
+
           {% block sidebar %}
-          <br/>
           <ul class="puces-navbar">
               <li><h4><a href="{% url 'home' %}">Accueil</a></h4></li>
               <li><h4><a href="{% url 'exercices' %}">Tous les exercices</a></h4></li>
               <li><h4><a href="{% url 'chapitres' %}">Tous les chapitres</a></h4></li>
               <li><h4><a href="{% url '1A' %}">Exercices par année : {% include './exo/icons/dice-1-fill.svg' %}</a> / <a href="{% url '2A' %}">{% include './exo/icons/dice-2-fill.svg' %}</a></h4></li>
-            <!-- <li><h4><a href="{% url '1A' %}">1A</a></h4>
-              <ul>
-                <li><p><h4><a href="#">Maths</a></h4></p>
-            <div class="liste-chap">
-              <ul>
-                <li><a href="#">Logique</a></li>
-                <li><a href="#">Analyse</a></li>
-                <li><a href="#">Suites</a></li>
-              </ul>
-            </div></li>
-                <li><p><h4><a href="#">Physique</a></h4></p>
-                <div class="liste-chap">
-                  <ul>
-                    <li><a href="#">CE1</a></li>
-                    <li><a href="#">Méca1</a></li>
-                    <li><a href="#">Thermo1</a></li>
-                  </ul>
-                </div></li>
-                <li><p><h4><a href="#">Chimie</a></h4></p>
-            <div class="liste-chap">
-              <ul>
-                <li><a href="#">Chimie Théorique</a></li>
-                <li><a href="#">Chimie des solutions</a></li>
-                <li><a href="#">Chimie Organique I</a></li>
-              </ul>
-            </div></li>
-              </ul>
-              </li>
-            <li><h4><a href="{% url '2A' %}">2A</a></h4>
-              <ul>
-                <li><p><h4><a href="#">Maths</a></h4></p>
-            <div class="liste-chap">
-              <ul>
-                <li><a href="#">Courbes paramétrées</a></li>
-                <li><a href="#">Intégrales généralisées</a></li>
-                <li><a href="#">Réduction des endomorphismes</a></li>
-              </ul>
-            </div></li>
-                <li><p><h4><a href="#">Physique</a></h4></p>
-                <div class="liste-chap">
-                  <ul>
-                    <li><a href="#">TTT</a></li>
-                    <li><a href="#">POM</a></li>
-                  </ul>
-                </div></li>
-                <li><p><h4><a href="#">Chimie</a></h4></p>
-            <div class="liste-chap">
-              <ul>
-                <li><a href="#">Thermo/Cinétique II</a></li>
-                <li><a href="#">Chimie Organique II</a></li>
-              </ul>
-            </div></li>
-              </ul>
-              </li>        -->
           
           {% endblock %}
 
           <div id="menu">
-    <h4>1A <a href="{% url '1A' %}">{% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
+    <h4><a href="{% url '1A' %}">1A {% include './exo/icons/chevron-down.svg' %}</a></h4><br/>
   <!--<div style="display: none">--> <!-- pour que ce soit replié par défaut -->
     <ul class="puces-navbar">
         <li><h4><a href="">Maths</a></h4></li>
@@ -250,7 +166,6 @@ element.style {
 </div>
 </ul>
 
-
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript">
 $('#menu > h4').click(function(){
@@ -259,18 +174,8 @@ $('#menu > h4').click(function(){
 });
 </script>
 
-          <!--<p><h4><a href="#">Maths</a></h4></p>
-            <div class="liste-chap">
-              <ul>
-                <li><a href="#">Courbes paramétrées</a></li>
-                <li><a href="#">Intégrales généralisées</a></li>
-                <li><a href="#">Réduction des endomorphismes</a></li>
-              </ul>
-            </div>
-          <p><h4><a href="#">Physique</a></h4></p>
-          <p><h4><a href="#">Chimie</a></h4></p>-->
       </div>
-         <div class="col-sm-10 ">
+         <div class="col-sm-10">
             <div class="container">
               {% block content %}
               {% endblock %}
@@ -283,7 +188,6 @@ $('#menu > h4').click(function(){
                       <ul class="pagination">
                         <li class="page-item">
                           {% if page_obj.has_previous %}
-                                <!--<a href="{{ request.path }}?page={{page_obj.previous_page_number }}"><span aria-hidden="true">&laquo;</span>-->
                             <ul class="pagination">
                               <li class="page-item">
                                 <a href="{{ request.path }}?page={{page_obj.previous_page_number }}">
@@ -306,7 +210,6 @@ $('#menu > h4').click(function(){
                         </ul>
                         <li class="page-item">
                           {% if page_obj.has_next %}
-                                <!--<a href="{{ request.path }}?page={{page_obj.next_page_number }}"><span aria-hidden="true">&raquo;</span></a>-->
                             <ul class="pagination">
                               <li class="page-item">
                                 <a href="{{ request.path }}?page={{page_obj.next_page_number }}">
@@ -328,5 +231,7 @@ $('#menu > h4').click(function(){
          </div>
     </div>
   </div>
+</div>
+</div>
 </body>
 </html>
