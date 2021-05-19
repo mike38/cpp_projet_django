@@ -12,7 +12,7 @@
       </li>
         {% for fichier in fichiers %}
           {% if fichier.exercice.chapitre == exercice.chapitre and fichier.correction == "Oui" %}
-            <a href="{{ fichier.file.url }}">{{ "Voir la correction" }}</a>
+            <a href="{{ fichier.file.url }}" class="btn btn-outline-dark">{{ "Voir la correction" }}</a>
           {% elif fichier.exercice.chapitre == exercice.chapitre and fichier.format == "i" %}
             <img src="{{ fichier.file.url }}" alt="énoncé" width="750"><br/>
           {% elif fichier.exercice.chapitre == exercice.chapitre and fichier.format == "p" %}
@@ -25,6 +25,7 @@
           {% endif %}
         {% endfor %}
     {% endfor %}
+
 
 
     <!-- <div class="card-footer text-muted">

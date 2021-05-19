@@ -5,7 +5,7 @@
   <ul>
     {% for fichier in fichiers %}
 		{% if fichier.correction == "Oui" %}
-			<a href="{{ fichier.file.url }}">{{ "Voir la correction" }}</a>
+			<a href="{{ fichier.file.url }}" class="btn btn-outline-dark">{{ "Voir la correction" }}</a>
 		{% elif fichier.format == "i" %}
 			<img src="{{ fichier.file.url }}" alt="énoncé" width="750"><br/>
 		{% elif fichier.format == "p" %}
