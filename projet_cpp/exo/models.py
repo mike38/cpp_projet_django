@@ -28,6 +28,8 @@ class Chapitre(models.Model):
 class Exercice(models.Model):
     nom = models.CharField(max_length=200, null=False)
     tags = TaggableManager()
+    difficulte = models.IntegerField(null=True, choices = (('1', '*'), ('2', '**'),
+        ('3', '***')))
     chapitre = models.ForeignKey(Chapitre, on_delete = models.CASCADE)
 
     def get_absolute_url(self):
@@ -47,12 +49,6 @@ class Fichier(models.Model):
     published_date = models.DateTimeField(blank=True, null=True)
     correction = models.CharField(max_length=3, choices = [('Oui', 'Oui'), ('Non', 'Non')], default='Non')
 
-    def ajouter(self): #fonction qui permettra d'ajouter des exos
-        self.published_date = timezone.now()
-        self.save()
-
-    #def supprimer(self): #fonction qui permettra de supprimer des exos
-
 
     def __str__(self):
         return self.exercice.nom + ' (' + self.exercice.chapitre.matiere + \
@@ -62,7 +58,6 @@ class Fichier(models.Model):
 
 
 class Utilisation(models.Model):
-    #date = models.DateTimeField()
     type = models.CharField(max_length = 200, null = False)
     exercice = models.ForeignKey(Exercice, related_name = 'utilisation',
         on_delete = models.CASCADE)
