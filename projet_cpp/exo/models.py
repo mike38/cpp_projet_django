@@ -68,4 +68,3 @@ class Utilisation(models.Model):
     def __str__(self):
         return self.exercice.nom + ' (' + self.type + ',' + str(self.correction) + ')'
 
-

@@ -10,7 +10,7 @@ class FichierForm(forms.ModelForm):
 class ExerciceForm(forms.ModelForm):
     class Meta:
         model = Exercice
-        fields = ['nom', 'tags', 'chapitre', ]
+        fields = ['nom', 'tags', 'chapitre', 'difficulte']
 
 class ChapitreForm(forms.ModelForm):
     class Meta:
