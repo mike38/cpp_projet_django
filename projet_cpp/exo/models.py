@@ -28,8 +28,8 @@ class Chapitre(models.Model):
 class Exercice(models.Model):
     nom = models.CharField(max_length=200, null=False)
     tags = TaggableManager()
-    difficulte = models.IntegerField(null=True, choices = (('1', '*'), ('2', '**'),
-        ('3', '***')))
+    difficulte = models.IntegerField(null=True, choices = ((1, '*'), (2, '**'),
+        (3, '***')))
     chapitre = models.ForeignKey(Chapitre, on_delete = models.CASCADE)
 
     def get_absolute_url(self):

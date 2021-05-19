@@ -1,7 +1,15 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>{{exercice.nom}} ({{exercice.chapitre.nom}})</h1>
+	{% if exercice.difficulte == null %}
+        <h1>{{exercice.nom}} ({{exercice.chapitre.nom}})</h1>
+        {% elif exercice.difficulte == 1 %}
+        <h1>{{exercice.nom}} ({{exercice.chapitre.nom}}) {% include './icons/star-fill.svg'%}</h1>
+        {% elif exercice.difficulte == 2 %}
+        <h1>{{exercice.nom}} ({{exercice.chapitre.nom}}) {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+        {% elif exercice.difficulte == 3 %}
+        <h1>{{exercice.nom}} ({{exercice.chapitre.nom}}) {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+    {% endif %}
   <ul>
     {% for fichier in fichiers %}
 		{% if fichier.correction == "Oui" %}

@@ -8,7 +8,15 @@
 		{% endif %}
   	{% for exercice in exercices %}
       <li>
+        {% if exercice.difficulte == null %}
         <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a>
+        {% elif exercice.difficulte == 1 %}
+        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a> ({% include './icons/star-fill.svg'%})
+        {% elif exercice.difficulte == 2 %}
+        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a> ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})
+        {% elif exercice.difficulte == 3 %}
+        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a> ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})
+        {% endif %}
       </li>
         {% for fichier in fichiers %}
           {% if fichier.exercice.chapitre == exercice.chapitre and fichier.correction == "Oui" %}
