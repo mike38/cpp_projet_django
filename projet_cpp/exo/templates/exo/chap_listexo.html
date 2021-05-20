@@ -2,9 +2,10 @@
 
 {% block content %}
 	<h1>{{ chapitre.matiere }} - Chapitre n°{{chapitre.numero}} : {{ chapitre.nom }}</h1>
-  	<h6>Voici les exercices disponibles pour ce chapitre !</h6>
-  		{% if exercices.count == 0 %}
+  	{% if exercices.count == 0 %}
 	  		Aucun exercice ! Patientez un peu, ils arrivent bientôt :-)
+    {% else %}
+    <h6>Voici les exercices disponibles pour ce chapitre !</h6>
 		{% endif %}
   	{% for exercice in exercices %}
       <li>

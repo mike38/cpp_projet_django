@@ -119,9 +119,9 @@ element.style {
           <div id="search">
             <form class="search" method=POST action="{% url 'search-chap' %}">
               {% csrf_token %}
-              {% include './exo/icons/search.svg'%}
-              <input class="barre-recherche" type="search" placeholder="Rechercher un exercice..." aria-label="Recherche" name="searched">
-              <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+              
+              <input class="barre-recherche" type="search" placeholder="Rechercher..." aria-label="Recherche" name="searched">
+              <button class="btn-secondary" type="submit">{% include './exo/icons/search.svg'%}</button>
             </form>
           </div>
         </div>
@@ -143,7 +143,7 @@ element.style {
               <li><h4><a href="{% url 'home' %}">Accueil</a></h4></li>
               <li><h4><a href="{% url 'exercices' %}">Tous les exercices</a></h4></li>
               <li><h4><a href="{% url 'chapitres' %}">Tous les chapitres</a></h4></li>
-              <li><h4><a href="{% url '1A' %}">Exercices par année :  {% include './exo/icons/dice-1-fill.svg' %}</a> / <a href="{% url '2A' %}">{% include './exo/icons/dice-2-fill.svg' %}</a></h4></li>
+              <li><h4><a href="{% url '1A' %}">Exercices par année :<br/>{% include './exo/icons/dice-1-fill.svg' %}</a> {% include './exo/icons/slash.svg' %} <a href="{% url '2A' %}">{% include './exo/icons/dice-2-fill.svg' %}</a></h4></li>
           
           {% endblock %}
 
@@ -190,8 +190,8 @@ $('#menu > h4').click(function(){
                           {% if page_obj.has_previous %}
                             <ul class="pagination">
                               <li class="page-item">
-                                <a href="{{ request.path }}?page={{page_obj.previous_page_number }}">
-                                <span class="page-link">Précédent</span></a>
+                                <a class="page-link" href="{{ request.path }}?page={{page_obj.previous_page_number }}">
+                                Précédent</a>
                               </li>
                             </ul>
                           {% else %}
@@ -212,8 +212,8 @@ $('#menu > h4').click(function(){
                           {% if page_obj.has_next %}
                             <ul class="pagination">
                               <li class="page-item">
-                                <a href="{{ request.path }}?page={{page_obj.next_page_number }}">
-                                <span class="page-link">Suivant</span></a>
+                                <a class="page-link" href="{{ request.path }}?page={{page_obj.next_page_number }}">
+                                Suivant</a>
                               </li>
                             </ul>
                           {% else %}

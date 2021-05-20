@@ -7,6 +7,8 @@ from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
 from .forms import FichierForm, ExerciceForm, ChapitreForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 
 
 def home(request):
@@ -16,6 +18,10 @@ class ExerciceListView(generic.ListView):
     model = Exercice
     paginate_by = 4
 
+def email_check(user):
+    return user.email.endswith('@grenoble-inp.com' or '@grenoble-inp.org')
+
+@login_required
 def detail(request, exercice_id):
     exercice = get_object_or_404(Exercice, pk=exercice_id)
     return render(request, 'exo/detail.html', {'exercice': exercice,
@@ -29,6 +35,7 @@ def all_1A(request):
 	return render(request, 'exo/1A.html', {'prem_list' : prem_list, 'm_list' : m_list,
 		'p_list' : p_list, 'c_list' : c_list})
 
+#@user_passes_test(email_check)
 def maths_1A(request):
 	m_list = Chapitre.objects.filter(annee='1A').filter(matiere='Maths').order_by('numero')
 	return render(request, 'exo/1A-maths.html', {'m_list' : m_list})
