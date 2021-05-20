@@ -2,14 +2,21 @@
 
 {% block content %}
 	{% if exercice.difficulte == null %}
-        <h1>{{exercice.nom}} ({{exercice.chapitre.nom}})</h1>
+        <h1>{{exercice.nom}} </h1>
         {% elif exercice.difficulte == 1 %}
-        <h1>{{exercice.nom}} ({{exercice.chapitre.nom}}) {% include './icons/star-fill.svg'%}</h1>
+        <h1>{{exercice.nom}} {% include './icons/star-fill.svg'%}</h1>
         {% elif exercice.difficulte == 2 %}
-        <h1>{{exercice.nom}} ({{exercice.chapitre.nom}}) {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+        <h1>{{exercice.nom}} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
         {% elif exercice.difficulte == 3 %}
-        <h1>{{exercice.nom}} ({{exercice.chapitre.nom}}) {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+        <h1>{{exercice.nom}} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
     {% endif %}
+	<p>Chapitre : <a href="{{ exercice.chapitre.get_absolute_url }}">{{ exercice.chapitre.nom }}</a></p>
+	{% if exercice.chapitre.annee == '1A' %}
+		<p>Année : <a href="{% url '1A' %}">{{ exercice.chapitre.annee }}</a></p>
+	{% else %}
+		<p>Année : <a href="{% url '2A' %}">{{ exercice.chapitre.annee }}</a></p>
+	{% endif %}
+	<p>Provenance : </p>
   <ul>
     {% for fichier in fichiers %}
 		{% if fichier.correction == "Oui" %}
@@ -26,6 +33,7 @@
 		{% endif %}
 	{% endfor %}
   </ul>
+  <p>Utilisations : </p>
 
   <div class="card">
   	<div class="card-header">
@@ -33,8 +41,9 @@
   	</div>
   	<div class="card-body">
   	<a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
-  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+	<a href="{% url 'edit_ex' exercice.id %}" class="btn btn-outline-success btn-sm">Modifier l'exercice</a>
   	<a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exerice</a>
+  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
   	</div>
   </div>
 

@@ -15,6 +15,9 @@ class ExerciceForm(forms.ModelForm):
     class Meta:
         model = Exercice
         fields = ['nom', 'tags', 'chapitre', 'difficulte']
+        help_texts = {
+            'tags': 'Mots-clés séparés par des virgules: ex. maths, matrices...'
+        }
 
 class ChapitreForm(forms.ModelForm):
     class Meta:
