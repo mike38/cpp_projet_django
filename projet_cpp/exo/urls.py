@@ -19,6 +19,8 @@ urlpatterns = [
     path('chapitre/<int:chapitre_id>', views.chap_detail, name='chapitre-details'),
     path('addchapitre/', views.add_chap, name='new_chap'),
     path('chapitres/', views.ChapitreListView.as_view(), name='chapitres'),
-
+    path('register/', views.registerPage, name="register"),
+	path('login/', views.loginPage, name="login"),  
+	path('logout/', views.logoutUser, name="logout"),
     
 ]

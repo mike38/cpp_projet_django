@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Acme&family=Caveat:wght@600&family=Courgette&family=Cuprum:wght@500&family=Montserrat:wght@500&family=Roboto&family=Roboto+Condensed:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
   <!-- Add additional CSS in static file -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 
 <!-- début AJOUT-->
@@ -102,6 +104,13 @@ element.style {
 .term-description img {
   margin:0 auto;
 }
+
+.hello-msg{
+  font-size: 18px;
+  color: #fff;
+  margin-left: 20px;
+}
+
     </style>
 <!-- fin AJOUT-->
 
@@ -123,12 +132,15 @@ element.style {
               <input class="barre-recherche" type="search" placeholder="Rechercher..." aria-label="Recherche" name="searched">
               <button class="btn-secondary" type="submit">{% include './exo/icons/search.svg'%}</button>
             </form>
+            <br/>
+            <span class="hello-msg">Bienvenue, <em>{{ request.user }}</em><a href="{% url 'logout' %}" class="hello-msg">Déconnexion</a></span>
           </div>
         </div>
       </div>
       <div class="titre">
       <h1><a href="/">ExoCpp</a></h1>
-      <h5>Le site d'exercices de la Prépa des INP de Grenoble</h5></div>
+      <h5>Le site d'exercices de la Prépa des INP de Grenoble</h5>
+      </div>
 
   </div>
 

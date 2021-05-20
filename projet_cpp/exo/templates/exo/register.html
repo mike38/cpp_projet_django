@@ -1,0 +1,203 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<title>Connexion</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com"> 
+  <link href="https://fonts.googleapis.com/css2?family=Acme&family=Caveat:wght@600&family=Courgette&family=Cuprum:wght@500&family=Montserrat:wght@500&family=Roboto&family=Roboto+Condensed:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
+  <!-- Add additional CSS in static file -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+
+<!-- début AJOUT-->
+
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//cdn.jsdelivr.net' />
+<link rel='dns-prefetch' href='//s.w.org' />
+
+
+<link crossorigin="anonymous" rel='stylesheet' id='ls-google-fonts-css'  href='https://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+
+
+<link rel='stylesheet' id='pretty-checkbx-css'  href='https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css?ver=5.4.4' type='text/css' media='all' />
+
+<link crossorigin="anonymous" rel='stylesheet' id='googleFontsOpenSans-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A400%2C600%2C700%2C800%2C300&#038;ver=1.0.0' type='text/css' media='all' />
+<link crossorigin="anonymous" rel='stylesheet' id='hypermarket-font-css'  href='https://fonts.googleapis.com/css?family=Work+Sans%3A300%2C400%2C500%2C600&#038;subset=latin%2Clatin-ext&#038;ver=1.6.4' type='text/css' media='all' />
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles2.css' %}"/>
+<link crossorigin="anonymous" rel='stylesheet' id='hypermarket-plus-google-fonts-css'  href='https://fonts.googleapis.com/css?family=Open+Sans&#038;subset=latin%2Clatin-ext&#038;ver=1.9.7' type='text/css' media='all' />
+
+
+<style id='hypermarket-plus-styles-inline-css' type='text/css'>
+a, a:hover {color: #20513f;}.btn-primary,.add-to-cart,.single-post article label+input[type="submit"],.single_add_to_cart_button,.toolbar .inner>a .count,.toolbar .inner>.cart-btn .count,input[type="checkbox"]:checked,input[type="radio"]:checked {background-color: #20513f;}.main-navigation>.menu>li.current-menu-item>a,.main-navigation>.menu>li.current_page_item>a,.main-navigation>.menu>li.current-menu-ancestor>a,.main-navigation>.menu>li.current-menu-parent>a,.main-navigation>.menu>li:hover>a,.main-navigation>.menu>li.active>a,.tilted-toolbar-section .main-navigation li.current-menu-item>a, .tilted-toolbar-section .main-navigation li.current_page_item>a, .tilted-toolbar-section .main-navigation li.current-menu-ancestor>a, .tilted-toolbar-section .main-navigation li.current-menu-parent>a,.tilted-toolbar-section .main-navigation li>a:active, .tilted-toolbar-section .main-navigation li>a:hover,.tilted-toolbar-section .main-navigation>li.menu-item-has-children.active>a {color: #20513f;}. .fw-section.bg-gray {background: #ffffff;}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .product-info .product_title, .product-info .price, .h3, .h4, .h5, .h6 {font-family: 'Open Sans', Helvetica, Arial, sans-serif;}p {font-family: 'Open Sans', Helvetica, Arial, sans-serif;}a {font-family: 'Open Sans', Helvetica, Arial, sans-serif;}.btn, .back-btn, .btn-primary, .add-to-cart em, .add-to-cart, .done-btn, .search-btn, .single-post article label+input[type="submit"], .single_add_to_cart_button,.button {font-family: 'Open Sans', Helvetica, Arial, sans-serif;}
+</style>
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LS_Meta = {"v":"5.6.10"};
+/* ]]> */
+</script>
+
+
+
+<script async defer type='text/javascript' src='https://stats.wp.com/s-202114.js'></script>
+
+
+<link rel="icon" href="https://www.grenoble-inp.fr/medias/photo/logo-groupe-inp-logo-noir-rvb_1453884743910-png?ID_FICHE=602391" />
+<link rel="apple-touch-icon" href="https://www.grenoble-inp.fr/medias/photo/logo-groupe-inp-logo-noir-rvb_1453884743910-png?ID_FICHE=602391" />
+<meta name="msapplication-TileImage" content="https://www.grenoble-inp.fr/medias/photo/logo-groupe-inp-logo-noir-rvb_1453884743910-png?ID_FICHE=602391" />
+
+
+
+<style>
+	body,
+	html {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		background: #032955 !important;
+		color : #f5f5f5;
+		font-style:normal;
+		font-weight:400;
+		font-family: 'Roboto Condensed', sans-serif : regular;
+	}
+	.user_card {
+		width: 450px;
+		margin-top: auto;
+		margin-bottom: auto;
+		background: #B1B1B1;
+		position: relative;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		padding: 20px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		border-radius: 5px;
+
+	}
+
+	.form_container {
+		margin-top: 30px;
+	}
+
+	#form-title{
+		color: #f5f5f5;
+		font-size: 22pt !important;
+	}
+
+	.login_btn {
+		width: 100%;
+		background: #550329 !important;
+		color: #f5f5f5 !important;
+	}
+	.login_btn:focus {
+		box-shadow: none !important;
+		outline: 0px !important;
+	}
+	.login_container {
+		padding: 0 2rem;
+		padding-top: 10px;
+
+	}
+	.input-group-text {
+		background: #550329 !important;
+		color: white !important;
+		border: 0 !important;
+		border-radius: 0.25rem 0 0 0.25rem !important;
+	}
+	.input_user,
+	.input_pass:focus {
+		box-shadow: none !important;
+		outline: 0px !important;
+	}
+
+
+	a, a:hover, input {
+		color: #550329;
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+
+</style>
+</head>
+<body>
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title">Créer un compte</h3>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+
+					<form method="POST" action="">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							{{form.username}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+							</div>
+							{{form.email}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							{{form.password1}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							{{form.password2}}
+						</div>
+
+				   		<div class="d-flex justify-content-center mt-3 login_container">
+				 			<input class="btn login_btn" type="submit" value="Créer un compte">
+				   		</div>
+
+					</form>
+				</div>
+
+				{{form.errors}}
+				
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Déjà un compte ? <a href="{% url 'login' %}" class="ml-2">Connectez-vous</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+						/* Because i didnt set placeholder values in forms.py they will be set here using vanilla Javascript
+		//We start indexing at one because CSRF_token is considered and input field 
+		 */
+
+		//Query All input fields
+		var form_fields = document.getElementsByTagName('input')
+		form_fields[1].placeholder='Identifiant..';
+		form_fields[2].placeholder='Email..';
+		form_fields[3].placeholder='Mot de passe...';
+		form_fields[4].placeholder='Confirmez votre mot de passe...';
+
+
+		for (var field in form_fields){	
+			form_fields[field].className += ' form-control'
+		}
+	</script>
+</body>
+</html>
