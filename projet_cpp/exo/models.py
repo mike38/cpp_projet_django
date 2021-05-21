@@ -31,6 +31,7 @@ class Exercice(models.Model):
     difficulte = models.IntegerField(null=True, choices = ((1, '*'), (2, '**'),
         (3, '***')))
     chapitre = models.ForeignKey(Chapitre, on_delete = models.CASCADE)
+    provenance = models.CharField(max_length=200, default='')
 
     def get_absolute_url(self):
         return reverse('exercice-details', args=[str(self.id)])
@@ -54,6 +55,13 @@ class Fichier(models.Model):
         return self.exercice.nom + ' (' + self.exercice.chapitre.matiere + \
             self.exercice.chapitre.annee + ' - ' + self.exercice.chapitre.nom + \
             ', ' + self.format + ')'
+    
+    def get_absolute_url(self):
+        return reverse('edit_fichier', args=[str(self.id)])
+
+    def delete(self, *args, **kwargs):
+        self.file.delete()
+        super().delete(*args, **kwargs)
 
 
 

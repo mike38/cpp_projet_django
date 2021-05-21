@@ -193,7 +193,7 @@ def search_chap(request):
 	if request.method =="POST":
 		searched = request.POST.get('searched')
 		chapitres = Chapitre.objects.filter(nom__contains=searched)
-		exercices = Exercice.objects.filter(nom__contains=searched)
+		exercices = Exercice.objects.filter(nom__contains=searched) | Exercice.objects.filter(tags__name__contains=searched)
 		return render(request, 'exo/search_chap.html', {'searched' : searched,
 			'chapitres' : chapitres, 'exercices' : exercices})
 	return render(request, 'exo/search_chap.html')
@@ -224,6 +224,7 @@ def add_ex(request):
 		if form.is_valid():
 			exercice = form.save(commit=False)
 			exercice.save()
+			form.save_m2m()
 			return redirect('exercice-details', exercice_id = exercice.pk)
 	else:
 		form = ExerciceForm()
@@ -262,8 +263,31 @@ def exercice_edit(request, exercice_id):
 		if form.is_valid():
 			exercice = form.save(commit=False)
 			exercice.save()
+			form.save_m2m()
 			return redirect('exercice-details', exercice_id = exercice.pk)
 	else:
 		form = ExerciceForm(instance=exercice)
 	return render(request, 'exo/edit_ex.html', {'form': form})
 	
+
+@login_required(login_url='login')
+def edit_fichier(request, pk):
+	fichier = get_object_or_404(Fichier, pk=pk)
+	if request.method == "POST":
+		form = FichierForm(request.POST, request.FILES, instance=fichier)
+		if form.is_valid():
+			fichier = form.save(commit=False)
+			fichier.save()
+			return redirect('exercice-details', exercice_id = fichier.exercice.pk)
+	else:
+		form = FichierForm(instance=fichier)
+	return render(request, 'exo/edit_fichier.html', {'form': form})
+
+
+@login_required(login_url='login')
+def supp_fichier(request, pk):
+	fichier = Fichier.objects.get(pk=pk)
+	exercice_id = fichier.exercice.pk
+	if request.method == "POST":
+		fichier.delete()
+	return redirect('exercice-details', exercice_id = exercice_id)

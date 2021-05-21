@@ -14,9 +14,10 @@ class FichierForm(forms.ModelForm):
 class ExerciceForm(forms.ModelForm):
     class Meta:
         model = Exercice
-        fields = ['nom', 'tags', 'chapitre', 'difficulte']
+        fields = ['nom', 'tags', 'chapitre', 'difficulte', 'provenance']
         help_texts = {
-            'tags': 'Mots-clés séparés par des virgules: ex. maths, matrices...'
+            'tags': 'Mots-clés séparés par des virgules: ex. maths, matrices...',
+            'provenance': 'ex. Banque Oral CCINP MP 2019'
         }
 
 class ChapitreForm(forms.ModelForm):

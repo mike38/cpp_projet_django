@@ -16,19 +16,42 @@
 	{% else %}
 		<p>Année : <a href="{% url '2A' %}">{{ exercice.chapitre.annee }}</a></p>
 	{% endif %}
-	<p>Provenance : </p>
+	<div style="margin:0px; margin-top:0px"><div class="quotetitle">Provenance: <input type="button" value="Afficher" style="width:45px;font-size:10px;margin:0px;padding:0px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';        this.innerText = ''; this.value = 'Cacher'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Afficher'; }" /></div><div class="quotecontent"><div style="display: none;">{{ exercice.provenance }}</div></div></div>
   <ul>
     {% for fichier in fichiers %}
 		{% if fichier.correction == "Oui" %}
+		<br/>
 			<a href="{{ fichier.file.url }}" class="btn btn-outline-dark">{{ "Voir la correction" }}</a>
+			<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-success btn-sm">Modifier le format</a>
+			<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+			</form>
 		{% elif fichier.format == "i" %}
-			<img src="{{ fichier.file.url }}" alt="énoncé" width="750"><br/>
+		<br/>
+			<img src="{{ fichier.file.url }}" alt="énoncé" width="750"> 
+			<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-success btn-sm">Modifier le format</a> 
+			<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+			</form>
 		{% elif fichier.format == "p" %}
 		<br/>
 		<div class="d-grid gap-2 d-md-block">
 			  <a href="{{ fichier.file.url }}" class="btn btn-outline-light">{{ fichier.get_format_display }}</a>
+			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-success btn-sm">Modifier le format</a>  
+			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+			</form>
   		{% elif fichier.format == "t" %}
-  			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">{{ fichier.get_format_display }}</a>
+		  <br/>
+  			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">{{ fichier.get_format_display }}</a> 
+			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-success btn-sm">Modifier le format</a> 
+			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+			</form>
   		</div>
 		{% endif %}
 	{% endfor %}
@@ -42,7 +65,7 @@
   	<div class="card-body">
   	<a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
 	<a href="{% url 'edit_ex' exercice.id %}" class="btn btn-outline-success btn-sm">Modifier l'exercice</a>
-  	<a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exerice</a>
+  	<a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
   	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
   	</div>
   </div>
