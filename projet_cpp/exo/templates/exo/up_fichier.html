@@ -1,6 +1,6 @@
 {% extends 'base_generic.html' %}
-
 {% block content %}
+{% if request.user.is_staff %}
   <h1>Ajouter un nouveau format</h1>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -10,5 +10,5 @@
     <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
   </div>
   </form>
-
+{% endif %}
 {% endblock %}

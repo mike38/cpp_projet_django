@@ -25,6 +25,7 @@ class ChapitreForm(forms.ModelForm):
         fields = ['annee', 'matiere', 'nom', 'numero', ]
 
 class CreateUserForm(UserCreationForm):
+	email = forms.EmailField(max_length=100, help_text='Votre adresse INP')
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'password1', 'password2']
