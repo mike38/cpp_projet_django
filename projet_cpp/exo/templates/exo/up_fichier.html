@@ -4,6 +4,9 @@
   <h1>Ajouter un nouveau format</h1>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    <h2>Format image :</h2>
+    {{ form.as_p }}
+    <h2>Source :</h2>
     {{ form.as_p }}
     <div class="col-12">
     <button type="submit" class="btn btn-warning">Enregistrer le fichier</button>

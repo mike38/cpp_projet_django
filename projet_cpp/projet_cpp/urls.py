@@ -17,12 +17,18 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views
 from exo import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('exo.urls')),
     path('search_chap', views.search_chap, name='search-chap'),
+    path('register/', views.register, name="register"),
+	path('login/', views.loginPage, name="login"),  
+	path('logout/', views.logoutUser, name="logout"),
+	path('interdit/', views.acces_interdit, name='interdit'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

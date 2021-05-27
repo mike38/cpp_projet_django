@@ -7,7 +7,7 @@
   <ul>
     {% for exercice in exercice_list %}
       <li>
-        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a> ({{exercice.chapitre.nom }})
+        <a href="{{ exercice.get_absolute_url }}"> Exercice {{ exercice.id }}</a> ({{exercice.chapitre.nom }})
       </li>
     {% endfor %}
   </ul>
@@ -17,5 +17,12 @@
 
   	<a href="{% url 'new_ex' %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
   	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+
+    <!-- <div class="d-grid gap-2 d-md-block">
+      <button class="btn btn-outline-primary" type="button">Button</button>
+      <button class="btn btn-outline-primary" type="button">Button</button>
+      <button class="btn btn-outline-primary" type="button">Button</button>
+      <button class="btn btn-outline-primary" type="button">Button</button>
+    </div> -->
 
 {% endblock %}

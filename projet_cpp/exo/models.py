@@ -13,10 +13,11 @@ class Chapitre(models.Model):
     annee = models.CharField(max_length=2, choices = [('1A', 'Première année'),
         ('2A', 'Deuxième année')])
     matiere = models.CharField(max_length=40 , choices = MATIERES)
-    nom = models.CharField(max_length=200, null=False)
-    numero = models.IntegerField(null=True, help_text="Vous pouvez numéroter le chapitre/module \
+    nom = models.CharField(max_length=200, null=False, unique=True)
+    numero = models.IntegerField(null=True, error_messages={"invalid_choice" : "Ce numéro de chapitre existe déjà."},
+        help_text="Vous pouvez numéroter le chapitre/module \
         pour permettre un classement dans l'ordre du programme (recommandé, \
-        la valeur par défaut est 1)", default=1)
+        la valeur par défaut est 1)", default=1, unique=True)
 
     def __str__(self):
         return self.nom #+ ' (' + self.matiere + ')'
@@ -32,6 +33,7 @@ class Exercice(models.Model):
         (3, '***')))
     chapitre = models.ForeignKey(Chapitre, on_delete = models.CASCADE)
     provenance = models.CharField(max_length=200, default='')
+    #numero = models.IntegerField()
 
     def get_absolute_url(self):
         return reverse('exercice-details', args=[str(self.id)])

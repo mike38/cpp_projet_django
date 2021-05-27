@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1>Ajouter un nouvel exercice</h1>
+  <p>Les champs avec un (*) sont obligatoires.</p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

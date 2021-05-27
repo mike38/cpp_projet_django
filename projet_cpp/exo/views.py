@@ -5,13 +5,13 @@ from django.shortcuts import get_object_or_404
 from datetime import date
 from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
-from .forms import FichierForm, ExerciceForm, ChapitreForm, CreateUserForm
+from .forms import FichierForm, ExerciceForm, ChapitreForm, UserRegisterForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .decorators import unauthenticated_user, allowed_users
+from .decorators import unauthenticated_user, allowed_users#, wrong_email
 from django.contrib.auth.models import Group, User
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -19,99 +19,80 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import UserRegisterForm
+from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+from django.urls import reverse_lazy, reverse
+from django.views.generic import View, UpdateView
+from django.contrib.auth.models import User
+from .utils import token_generator
 
 
 def home(request):
     return render(request, 'exo/home.html', {})
 
+def acces_interdit(request):
+	return render(request, 'exo/acces_interdit.html', {})
+
 class ExerciceListView(generic.ListView):
     model = Exercice
-    paginate_by = 4
+    paginate_by = 8
 
 def email_check(user):
     return user.email.endswith('@grenoble-inp.org') or user.email.endswith('@grenoble-inp.fr')
 
 @unauthenticated_user
-def registerPage(request):
-	form = CreateUserForm()
-	if request.method == 'POST':
-		form = CreateUserForm(request.POST)
-		if form.is_valid():
-			user = form.save(commit=False)
-			user.is_active = False
-			user.save()
-
-			username = form.cleaned_data.get('username')
-			mail = form.cleaned_data.get('email')
-			if mail[-1] == 'g' :
-				group = Group.objects.get(name='etudiant')
-				user.groups.add(group)
-			if mail[-1] == 'r' :
-				group = Group.objects.get(name='prof')
-				user.groups.add(group)
-			messages.success(request, 'Votre compte est créé ' + username + ' !')
-
-			# current_site = get_current_site(request)
-			# mail_subject = 'Compléter la création de votre compte sur ExoCpp'
-   #      	message = render_to_string('templates/exo/acc_active_email.html', {'user': user,'domain': current_site.domain,'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),'token':account_activation_token.make_token(user),})
-   #      	email = EmailMessage(mail_subject, message, to=[mail])
-   #      	email.send()
-        	# return HttpResponse('Veuillez confirmer votre email pour compléter la création de votre compte')
-
-	context = {'form':form}
-	return render(request, 'exo/register.html', context)
-
-# @unauthenticated_user
-# def registerPage(request):
-# 	form = CreateUserForm()
-
-#     if request.method == 'POST':
-#         form = CreateUserForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.is_active = False
-#             user.save()
-
-			
-
-#             current_site = get_current_site(request)
-#             mail_subject = 'Activez votre compte sur ExoCpp'
-#             message = render_to_string('templates/exo/acc_active_email.html', {
-#                 'user': user,
-#                 'domain': current_site.domain,
-#                 'uidb64': b'OA', 'token': '4tm-3fcfb375c8ba14f9a95b'})
-#             to_email = form.cleaned_data.get('email')
-#             email = EmailMessage(
-#                         mail_subject, email.content_subtype = “html”, message, to=[to_email]
-#             )
-#             email.send()
-#    #          if mail[-1] == 'g' :
-# 			# 	group = Group.objects.get(name='etudiant')
-# 			# 	user.groups.add(group)
-# 			# if mail[-1] == 'r' :
-# 			# 	group = Group.objects.get(name='prof')
-# 			# 	user.groups.add(group)
-# 			# messages.success(request, 'Votre compte est créé ' + username + ' !')
-#             return HttpResponse('Veuillez confirmer votre email pour compléter la création de votre compte')
-
-#     context = {'form':form}
-#  	return render(request, 'exo/register.html', context)
-
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            messages.success(request, 'Veuillez confirmer votre email pour compléter la création de votre compte')
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            current_site = get_current_site(request)
+            mail_subject = 'Activez votre compte sur ExoCpp'
+            message = render_to_string('exo/acc_active_email.html', {'user': user,'domain': current_site.domain,
+            	'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+            	'token':account_activation_token.make_token(user),})
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+            )
+            email.send()
+            if list(to_email)[-1] == 'g': #pour les élèves
+            	group = Group.objects.get(name='etudiant')
+            	user.groups.add(group)
+			# elif list(to_email)[-1] == 'r': #pour les profs (ne fonctionne pas)
+   #          	group = Group.objects.get(name='prof')
+   #          	user.groups.add(group)
+            # messages.success(request, f'Votre compte a bien été créé ! Vous pouvez dès à présent vous connecter.')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'exo/register.html', {'form': form, 'title':'register here'})
+  
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except(TypeError, ValueError, OverflowError):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
+        # user.profile.email_confirmed = True
         user.save()
         login(request, user)
-        # return redirect('home')
-        return HttpResponse('Merci pour voptre confimation. \
-        	Vous pouvez dès à présent votre connecter à votre compte.')
+        messages.success(request, ('Your account have been confirmed.'))
+        return redirect('home')
     else:
         return HttpResponse('Lien d\'activation invalide !')
+
 
 @unauthenticated_user
 def loginPage(request):
@@ -120,12 +101,13 @@ def loginPage(request):
 		password = request.POST.get('password')
 		user = authenticate(request, username=username, password=password)
 		if user is not None :
-			login(request, user)
+			form = login(request, user)
+			messages.success(request, 'Votre compte est créé ' + username + ' !')
 			return redirect('home')
 		else :
 			messages.info(request, 'Identifiant ou mot de passe erroné')
-	context = {}
-	return render(request, 'exo/login.html')
+	form = AuthenticationForm()
+	return render(request, 'exo/login.html', {'form':form, 'title':'log in'})
 
 def logoutUser(request):
 	logout(request)
@@ -147,7 +129,8 @@ def all_1A(request):
 		'p_list' : p_list, 'c_list' : c_list})
 
 @user_passes_test(email_check)
-#@login_required(login_url='login')
+# @wrong_email
+@login_required(login_url='login')
 def maths_1A(request):
 	m_list = Chapitre.objects.filter(annee='1A').filter(matiere='Maths').order_by('numero')
 	return render(request, 'exo/1A-maths.html', {'m_list' : m_list})
@@ -200,6 +183,7 @@ def search_chap(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
 def upload_fichier(request):
 	if request.method == "POST":
 		form = FichierForm(request.POST , request.FILES)
@@ -212,12 +196,14 @@ def upload_fichier(request):
 	return render(request, 'exo/up_fichier.html', {'form': form,})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
 def supp_ex(request, exercice_id):
 	exercice = Exercice.objects.get(pk=exercice_id)
 	exercice.delete()
 	return redirect('/exercices/')
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
 def add_ex(request):
 	if request.method == "POST":
 		form = ExerciceForm(request.POST)
@@ -231,7 +217,7 @@ def add_ex(request):
 	return render(request, 'exo/new_ex.html', {'form': form,})
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin', 'prof'])
 def add_chap(request):
 	if request.method == "POST":
 		form = ChapitreForm(request.POST)
@@ -256,6 +242,7 @@ class ChapitreListView(generic.ListView):
     ordering = ['nom']
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
 def exercice_edit(request, exercice_id):
 	exercice = get_object_or_404(Exercice, pk=exercice_id)
 	if request.method == "POST":
@@ -271,6 +258,7 @@ def exercice_edit(request, exercice_id):
 	
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
 def edit_fichier(request, pk):
 	fichier = get_object_or_404(Fichier, pk=pk)
 	if request.method == "POST":
@@ -285,6 +273,7 @@ def edit_fichier(request, pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
 def supp_fichier(request, pk):
 	fichier = Fichier.objects.get(pk=pk)
 	exercice_id = fichier.exercice.pk

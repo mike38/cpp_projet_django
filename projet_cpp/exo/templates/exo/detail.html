@@ -2,13 +2,13 @@
 
 {% block content %}
 	{% if exercice.difficulte == null %}
-        <h1>{{exercice.nom}} </h1>
+        <h1>Exercice {{ exercice.nom }}</h1>
         {% elif exercice.difficulte == 1 %}
-        <h1>{{exercice.nom}} {% include './icons/star-fill.svg'%}</h1>
+        <h1>Exercice {{ exercice.nom }} {% include './icons/star-fill.svg'%}</h1>
         {% elif exercice.difficulte == 2 %}
-        <h1>{{exercice.nom}} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+        <h1>Exercice {{ exercice.id }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
         {% elif exercice.difficulte == 3 %}
-        <h1>{{exercice.nom}} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+        <h1>Exercice {{ exercice.nom }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
     {% endif %}
 	<p>Chapitre : <a href="{{ exercice.chapitre.get_absolute_url }}">{{ exercice.chapitre.nom }}</a></p>
 	{% if exercice.chapitre.annee == '1A' %}
@@ -17,29 +17,60 @@
 		<p>Année : <a href="{% url '2A' %}">{{ exercice.chapitre.annee }}</a></p>
 	{% endif %}
 	<div style="margin:0px; margin-top:0px"><div class="quotetitle">Provenance: <input type="button" value="Afficher" style="width:45px;font-size:10px;margin:0px;padding:0px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';        this.innerText = ''; this.value = 'Cacher'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Afficher'; }" /></div><div class="quotecontent"><div style="display: none;">{{ exercice.provenance }}</div></div></div>
-  <ul>
-    {% for fichier in fichiers %}
+
+	<div class="card w-75">
+  	<div class="card-header">
+  		<h4>Actions</h4>
+  	</div>
+  	<div class="card-body">
+  	<a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+	<a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
+  	<a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
+  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+  	</div>
+</div>
+	<ul>
+	  {% for fichier in fichiers %}
 		{% if fichier.correction == "Oui" %}
-		<br/>
-			<a href="{{ fichier.file.url }}" class="btn btn-outline-dark">{{ "Voir la correction" }}</a>
-			<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-success btn-sm">Modifier le format</a>
+			<div id="correction">
+	  <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
+	<div style="display: none"> <!-- pour que ce soit replié par défaut -->
+	  <img src="{{ fichier.file.url }}" alt="correction" width="750">
+	  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
 			<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
 				{% csrf_token %}
 				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
 			</form>
-		{% elif fichier.format == "i" %}
+	</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
+$('#correction > a').click(function(){
+    $(this).next().next().slideToggle();
+    return false;
+});
+</script>	
+<!-- <style id="correction" type="text/css"> form : {font-size: 50% ;} </style>-->		{% elif fichier.format == "i" %}
 		<br/>
 			<img src="{{ fichier.file.url }}" alt="énoncé" width="750"> 
-			<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-success btn-sm">Modifier le format</a> 
+			<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a> 
 			<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
 				{% csrf_token %}
 				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
 			</form>
 		{% elif fichier.format == "p" %}
 		<br/>
+		<!-- <div class="d-grid gap-2 d-md-block">
+	      <button class="btn btn-outline-light" type="button"><a href="{{ fichier.file.url }}">{{ fichier.get_format_display }}</a></button>
+	      <button class="btn btn-outline-warning" type="button"><a href="{{ fichier.get_absolute_url }}">Modifier le format</a>  </button>
+	      <button><form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+					{% csrf_token %}
+					<button type="submit" class="btn btn-outline-danger">Supprimer le fichier</button>
+				</form></button>
+	    </div> -->
 		<div class="d-grid gap-2 d-md-block">
 			  <a href="{{ fichier.file.url }}" class="btn btn-outline-light">{{ fichier.get_format_display }}</a>
-			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-success btn-sm">Modifier le format</a>  
+			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
 			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
 				{% csrf_token %}
 				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -47,7 +78,7 @@
   		{% elif fichier.format == "t" %}
 		  <br/>
   			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">{{ fichier.get_format_display }}</a> 
-			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-success btn-sm">Modifier le format</a> 
+			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a> 
 			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
 				{% csrf_token %}
 				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -56,19 +87,9 @@
 		{% endif %}
 	{% endfor %}
   </ul>
+  </ul>
   <p>Utilisations : </p>
 
-  <div class="card">
-  	<div class="card-header">
-  		<h4>Actions</h4>
-  	</div>
-  	<div class="card-body">
-  	<a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
-	<a href="{% url 'edit_ex' exercice.id %}" class="btn btn-outline-success btn-sm">Modifier l'exercice</a>
-  	<a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
-  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
-  	</div>
-  </div>
 
   <!--<p><a href="{% url 'newformat' %}">Ajouter un format</a></p>-->
   <!--<p><a href="{% url 'home' %}">Retour à la page d'accueil</a></p>-->

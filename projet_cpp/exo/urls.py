@@ -1,5 +1,7 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -19,10 +21,7 @@ urlpatterns = [
     path('chapitre/<int:chapitre_id>', views.chap_detail, name='chapitre-details'),
     path('addchapitre/', views.add_chap, name='new_chap'),
     path('chapitres/', views.ChapitreListView.as_view(), name='chapitres'),
-    path('register/', views.registerPage, name="register"),
-	path('login/', views.loginPage, name="login"),  
-	path('logout/', views.logoutUser, name="logout"),
-	path('activate/<uidb64>/<token>', views.activate, name='activate'),
+    path('activate/<uidb64>/<token>', views.activate, name='activate'),
     path('edit_ex/<int:exercice_id>', views.exercice_edit, name='edit_ex'),
     path('edit_fichier/<int:pk>', views.edit_fichier, name='edit_fichier'),
     path('supp_fichier/<int:pk>', views.supp_fichier, name='supp_fichier'),

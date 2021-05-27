@@ -1,5 +1,8 @@
 {% autoescape off %}
-<p>Bonjour {{ user.username }},</p>
-<p>veuillez cliquer sur le lien suivant pour confirmez la création de votre compte :
-http://{{ domain }}{% url 'activate' uidb32=uid token=token %}</p>
+Bonjour {{ user.username }},
+
+bienvenue sur ExoCpp ! Pour confirmer la création de votre compte, veuillez cliquer sur le lien suivant :
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+À bientôt sur ExoCpp ;-)
 {% endautoescape %}

@@ -4,12 +4,12 @@
 	<h1>1A</h1>
   	<h6>Voici les exercices disponibles pour les 1A, enjoy !</h6>
   		{% if prem_list.count == 0 %}
-	  		Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt :-)
+	  		<p>Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}</p>
 		{% endif %}
 		<div class="card">
 			  <h4 class="card-header">Chimie</h4>
 			  {% if c_list.count == 0 %}
-	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt :-)
+	  			<p>Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}</p>
 			  {% endif %}
 			{% for chapitre in c_list %}
 				<div class="card-body">
@@ -21,7 +21,7 @@
 		<div class="card">
 			  <h4 class="card-header">Maths</h4>
 			  {% if m_list.count == 0 %}
-	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt :-)
+	  			<p>Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}</p>
 			  {% endif %}
 			{% for chapitre in m_list %}
 				<div class="card-body">
@@ -33,7 +33,7 @@
 		<div class="card">
 			  <h4 class="card-header">Physique</h4>
 			  {% if p_list.count == 0 %}
-	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt :-)
+	  			<p>Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}</p>
 			  {% endif %}
 			{% for chapitre in p_list %}
 				<div class="card-body">

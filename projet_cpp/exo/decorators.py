@@ -18,6 +18,13 @@ def allowed_users(allowed_roles=[]):
 			if group in allowed_roles:
 				return view_func(request, *args, **kwargs)
 			else:
-				return HttpResponse('Vous ne passerez pas')
+				return redirect('interdit')
 		return wrapper_func
 	return decorator
+
+# def wrong_email(view_func):
+# 	def wrapper_func(request, *args, **kwargs):
+# 		if request.user.user_passes_test(email_check):
+# 			return redirect('interdit')
+# 		return view_func(request, *args, **kwargs)
+# 	return wrapper_func
