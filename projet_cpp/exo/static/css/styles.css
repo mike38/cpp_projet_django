@@ -40,7 +40,7 @@
     min-height: 60px;
     background-color: #032955;
     margin-top: 0;
-    padding: 10px 20px 20px 40px;
+    padding: 10px 20px 25px 40px;
 }
 
 .page-header h1,
@@ -181,4 +181,13 @@ h6 {
 
 .mt-4, .d-flex {
 	color: white;
+}
+
+.container-fluid {
+	margin-left: 100px;
+}
+
+.liste-detail {
+	list-style: "-";
+	font-size : 12pt;
 }

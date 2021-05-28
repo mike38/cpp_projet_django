@@ -10,37 +10,49 @@
         {% elif exercice.difficulte == 3 %}
         <h1>Exercice {{ exercice.nom }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
     {% endif %}
-	<p>Chapitre : <a href="{{ exercice.chapitre.get_absolute_url }}">{{ exercice.chapitre.nom }}</a></p>
+	<h5>Chapitre : <a href="{{ exercice.chapitre.get_absolute_url }}">{{ exercice.chapitre.nom }}</a></h5>
 	{% if exercice.chapitre.annee == '1A' %}
-		<p>Année : <a href="{% url '1A' %}">{{ exercice.chapitre.annee }}</a></p>
+		<h5>Année : <a href="{% url '1A' %}">{{ exercice.chapitre.annee }}</a></h5>
 	{% else %}
-		<p>Année : <a href="{% url '2A' %}">{{ exercice.chapitre.annee }}</a></p>
+		<h5>Année : <a href="{% url '2A' %}">{{ exercice.chapitre.annee }}</a></h5>
 	{% endif %}
-	<div style="margin:0px; margin-top:0px"><div class="quotetitle">Provenance: <input type="button" value="Afficher" style="width:45px;font-size:10px;margin:0px;padding:0px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';        this.innerText = ''; this.value = 'Cacher'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Afficher'; }" /></div><div class="quotecontent"><div style="display: none;">{{ exercice.provenance }}</div></div></div>
-
-	<div class="card w-75">
+	<h5>Tags : </h5>
+	<div class="container-fluid"><div class="card">
   	<div class="card-header">
   		<h4>Actions</h4>
   	</div>
   	<div class="card-body">
-  	<a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+  	<!-- <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
 	<a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
   	<a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
-  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
-  	</div>
-</div>
+  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a> -->
+  	<div class="btn-group" role="group">
+		<a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+		<a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
+  		<a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
+  		<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+	</div>
+  	</div></div>  	
+	</div>
+	<br/>
+	<div style="margin:0px; margin-top:0px; font-size: 14pt;"><div class="quotetitle">Provenance : <input type="button" value="Afficher" style="width:45px;font-size:10px;margin:0px;padding:0px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';        this.innerText = ''; this.value = 'Cacher'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Afficher'; }" /></div><div class="quotecontent"><div style="display: none;">{{ exercice.provenance }}</div></div></div>
+	<br/>
+	<h5>Utilisations : </h5>
 	<ul>
-	  {% for fichier in fichiers %}
+	  {% for fichier in fichiers %}	
+		{% if fichier.format == "i" %}
 		{% if fichier.correction == "Oui" %}
 			<div id="correction">
 	  <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
 	<div style="display: none"> <!-- pour que ce soit replié par défaut -->
 	  <img src="{{ fichier.file.url }}" alt="correction" width="750">
-	  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
-			<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-				{% csrf_token %}
-				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-			</form>
+	  <div class="btn-group" role="group">
+		<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+		<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+			{% csrf_token %}
+			<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+		</form>
+	</div>
 	</div>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
@@ -49,17 +61,35 @@ $('#correction > a').click(function(){
     $(this).next().next().slideToggle();
     return false;
 });
-</script>	
-<!-- <style id="correction" type="text/css"> form : {font-size: 50% ;} </style>-->		{% elif fichier.format == "i" %}
-		<br/>
+</script>
+{% elif fichier.correction == "Non" %}
 			<img src="{{ fichier.file.url }}" alt="énoncé" width="750"> 
-			<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a> 
-			<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+			<li> Image :
+			<div class="btn-group" role="group">
+			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
+			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
 				{% csrf_token %}
 				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
 			</form>
+		</div>
+		</li>
+		{% endif %}
 		{% elif fichier.format == "p" %}
 		<br/>
+		{% if fichier.correction == "Oui" %}
+		<li>
+			PDF : 
+		<div class="btn-group" role="group">
+			  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Correction</a> 
+			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
+			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+			</form>
+		</div>
+		</li>
+			{% elif fichier.correction == "Non" %}
+		<li>
 		<!-- <div class="d-grid gap-2 d-md-block">
 	      <button class="btn btn-outline-light" type="button"><a href="{{ fichier.file.url }}">{{ fichier.get_format_display }}</a></button>
 	      <button class="btn btn-outline-warning" type="button"><a href="{{ fichier.get_absolute_url }}">Modifier le format</a>  </button>
@@ -68,15 +98,46 @@ $('#correction > a').click(function(){
 					<button type="submit" class="btn btn-outline-danger">Supprimer le fichier</button>
 				</form></button>
 	    </div> -->
-		<div class="d-grid gap-2 d-md-block">
-			  <a href="{{ fichier.file.url }}" class="btn btn-outline-light">{{ fichier.get_format_display }}</a>
+	    PDF : 
+		<div class="btn-group" role="group">
+			  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a> 
 			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
 			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
 				{% csrf_token %}
 				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
 			</form>
+		</div>
+		</li>
+		{% endif %}
   		{% elif fichier.format == "t" %}
 		  <br/>
+		  {% if fichier.correction == "Oui" %}
+		<li> Fichier tex : 
+		<div class="btn-group">
+  			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">Correction</a> 
+			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a> 
+			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+			</form>
+  		</div>
+  		</li>
+  		{% elif fichier.correction == "Non" %}
+	    <li>
+	    Fichier tex : 
+		<div class="btn-group" role="group">
+			  <a href="{{ fichier.file.url }}" class="btn btn-outline-info">Fichier</a> 
+			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
+			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+			</form>
+		</div>
+  		{% endif %}
+		{% elif fichier.format == "w" %}
+		  <br/>
+		<li> Fichier docx : 
+		<div class="btn-group">
   			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">{{ fichier.get_format_display }}</a> 
 			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a> 
 			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
@@ -84,15 +145,10 @@ $('#correction > a').click(function(){
 				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
 			</form>
   		</div>
+  		</li>
 		{% endif %}
 	{% endfor %}
   </ul>
   </ul>
-  <p>Utilisations : </p>
-
-
-  <!--<p><a href="{% url 'newformat' %}">Ajouter un format</a></p>-->
-  <!--<p><a href="{% url 'home' %}">Retour à la page d'accueil</a></p>-->
-
   
 {% endblock %}
