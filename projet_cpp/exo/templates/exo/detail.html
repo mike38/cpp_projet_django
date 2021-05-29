@@ -17,6 +17,8 @@
 		<h5>Année : <a href="{% url '2A' %}">{{ exercice.chapitre.annee }}</a></h5>
 	{% endif %}
 	<h5>Tags : </h5>
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
 	<div class="container-fluid"><div class="card">
   	<div class="card-header">
   		<h4>Actions</h4>
@@ -35,17 +37,21 @@
   	</div></div>  	
 	</div>
 	<br/>
+	{% endif %}
+  {% endfor %}
 	<div style="margin:0px; margin-top:0px; font-size: 14pt;"><div class="quotetitle">Provenance : <input type="button" value="Afficher" style="width:45px;font-size:10px;margin:0px;padding:0px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';        this.innerText = ''; this.value = 'Cacher'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Afficher'; }" /></div><div class="quotecontent"><div style="display: none;">{{ exercice.provenance }}</div></div></div>
 	<br/>
 	<h5>Utilisations : </h5>
-	<ul>
 	  {% for fichier in fichiers %}	
 		{% if fichier.format == "i" %}
 		{% if fichier.correction == "Oui" %}
+  
 			<div id="correction">
 	  <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
 	<div style="display: none"> <!-- pour que ce soit replié par défaut -->
 	  <img src="{{ fichier.file.url }}" alt="correction" width="750">
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
 	  <div class="btn-group" role="group">
 		<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
 		<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
@@ -53,6 +59,8 @@
 			<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
 		</form>
 	</div>
+	{% endif %}
+  {% endfor %}
 	</div>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
@@ -63,29 +71,41 @@ $('#correction > a').click(function(){
 });
 </script>
 {% elif fichier.correction == "Non" %}
-			<img src="{{ fichier.file.url }}" alt="énoncé" width="750"> 
-			<li> Image :
-			<div class="btn-group" role="group">
-			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
-			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-				{% csrf_token %}
-				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-			</form>
-		</div>
+<br/>
+<h4>Énoncé :</h4>
+		<img src="{{ fichier.file.url }}" alt="énoncé" width="750"> 
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
+    	<li> Image :
+        <div class="btn-group" role="group">
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+          </form>
+        </div>
+    {% endif %}
+  {% endfor %}
 		</li>
 		{% endif %}
 		{% elif fichier.format == "p" %}
-		<br/>
+	<br/>
 		{% if fichier.correction == "Oui" %}
 		<li>
 			PDF : 
 		<div class="btn-group" role="group">
 			  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Correction</a> 
-			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
-			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-				{% csrf_token %}
-				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-			</form>
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
+        <div class="btn-group" role="group">
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+          </form>
+        </div>
+    {% endif %}
+  {% endfor %}
 		</div>
 		</li>
 			{% elif fichier.correction == "Non" %}
@@ -101,25 +121,35 @@ $('#correction > a').click(function(){
 	    PDF : 
 		<div class="btn-group" role="group">
 			  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a> 
-			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
-			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-				{% csrf_token %}
-				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-			</form>
-		</div>
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
+        <div class="btn-group" role="group">
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+          </form>
+        </div>
+    {% endif %}
+  {% endfor %}
 		</li>
 		{% endif %}
   		{% elif fichier.format == "t" %}
-		  <br/>
 		  {% if fichier.correction == "Oui" %}
 		<li> Fichier tex : 
 		<div class="btn-group">
   			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">Correction</a> 
-			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a> 
-			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-				{% csrf_token %}
-				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-			</form>
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
+        <div class="btn-group" role="group">
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+          </form>
+        </div>
+    {% endif %}
+  {% endfor %}
   		</div>
   		</li>
   		{% elif fichier.correction == "Non" %}
@@ -127,26 +157,57 @@ $('#correction > a').click(function(){
 	    Fichier tex : 
 		<div class="btn-group" role="group">
 			  <a href="{{ fichier.file.url }}" class="btn btn-outline-info">Fichier</a> 
-			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>  
-			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-				{% csrf_token %}
-				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-			</form>
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
+        <div class="btn-group" role="group">
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+          </form>
+        </div>
+    {% endif %}
+  {% endfor %}
 		</div>
   		{% endif %}
 		{% elif fichier.format == "w" %}
-		  <br/>
+		  {% if fichier.correction == "Oui" %}
 		<li> Fichier docx : 
-		<div class="btn-group">
-  			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">{{ fichier.get_format_display }}</a> 
-			  <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a> 
-			  <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-				{% csrf_token %}
-				<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-			</form>
+  		<div class="btn-group">
+  			<a href="{{ fichier.file.url }}" class="btn btn-outline-info">Correction</a> 
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
+        <div class="btn-group" role="group">
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+          </form>
+        </div>
+    {% endif %}
+  {% endfor %}
   		</div>
   		</li>
+  		{% elif fichier.correction == "Non" %}
+	    <li>
+	    Fichier docx : 
+		<div class="btn-group" role="group">
+			  <a href="{{ fichier.file.url }}" class="btn btn-outline-info">Fichier</a> 
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
+        <div class="btn-group" role="group">
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+          </form>
+        </div>
+    {% endif %}
+  {% endfor %}
+		</div>
+  		</li>
 		{% endif %}
+	{% endif %}
 	{% endfor %}
   </ul>
   </ul>

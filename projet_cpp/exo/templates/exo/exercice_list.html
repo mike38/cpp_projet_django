@@ -15,8 +15,12 @@
     <p>Il n'y a pas d'exercices dans le catalogue.</p>
   {% endif %}
 
+{% for group in request.user.groups.all %}
+  {% if group.name == 'prof'%}
   	<a href="{% url 'new_ex' %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
   	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+  {% endif %}
+{% endfor %}
 
     <!-- <div class="d-grid gap-2 d-md-block">
       <button class="btn btn-outline-primary" type="button">Button</button>

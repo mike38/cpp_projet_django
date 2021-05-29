@@ -191,3 +191,11 @@ h6 {
 	list-style: "-";
 	font-size : 12pt;
 }
+
+.card-body {
+	margin-left: 10px;
+}
+
+.card-title {
+    margin-bottom:4px;
+}

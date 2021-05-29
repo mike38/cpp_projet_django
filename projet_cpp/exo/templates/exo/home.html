@@ -3,8 +3,11 @@
 {% block content %}
 	<h1>ExoCpp</h1>
   	<p>Bienvenue sur ExoCpp ! Ici vous trouverez votre bonheur (enfin, au moins des exercices).</p>
-
+  {% for group in request.user.groups.all %}
+    {% if group.name == 'prof'%}
 	<a href="{% url 'new_chap' %}" class="btn btn-outline-success btn-sm">Ajouter un chapitre</a>
 	<a href="{% url 'new_ex' %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
+	{% endif %}
+  {% endfor %}
 
 {% endblock %}

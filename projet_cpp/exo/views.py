@@ -44,6 +44,14 @@ class ExerciceListView(generic.ListView):
 def email_check(user):
     return user.email.endswith('@grenoble-inp.org') or user.email.endswith('@grenoble-inp.fr')
 
+def is_prof(user):
+    return user.groups.filter(name='Prof').exists()
+
+
+def numerotation(request, curr):
+	exo_chap = Exercice.objects.filter(matiere='curr').order_by('id')
+	return render(request, 'exo/detail.html', {'exo_chap' : exo_chap})
+
 @unauthenticated_user
 def register(request):
     if request.method == 'POST':
@@ -85,10 +93,9 @@ def activate(request, uidb64, token):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
-        # user.profile.email_confirmed = True
         user.save()
         login(request, user)
-        messages.success(request, ('Your account have been confirmed.'))
+        messages.success(request, ('Votre compte est maintenant créé.'))
         return redirect('home')
     else:
         return HttpResponse('Lien d\'activation invalide !')

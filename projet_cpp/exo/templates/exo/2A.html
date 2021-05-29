@@ -4,12 +4,14 @@
 	<h1>2A</h1>
   	<h6>Voici les exercices disponibles pour les 2A, enjoy !</h6>
   		{% if deux_list.count == 0 %}
-	  		Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}
+	  		<p>Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}</p>
 		{% endif %}
+		<div class="container-fluid">
+		<div class="container-fluid">
 		<div class="card">
 			  <h4 class="card-header">Chimie</h4>
 			  {% if c_list.count == 0 %}
-	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}
+	  			<p>Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}</p>
 			  {% endif %}
 			{% for chapitre in c_list %}
 				<div class="card-body">
@@ -17,11 +19,13 @@
 			  	</div>
 			{% endfor %}
 		</div>
+		</div>
 		<br/>
+		<div class="container-fluid">
 		<div class="card">
 			  <h4 class="card-header">Maths</h4>
 			  {% if m_list.count == 0 %}
-	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}
+	  			<p>Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}</p>
 			  {% endif %}
 			{% for chapitre in m_list %}
 				<div class="card-body">
@@ -29,16 +33,22 @@
 			  	</div>
 			{% endfor %}
 		</div>
+		</div>
 		<br/>
+		<div class="container-fluid">
 		<div class="card">
-			  <h4 class="card-header">Physique</h4>
-			  {% if p_list.count == 0 %}
-	  			<p>Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}</p>
-			  {% endif %}
+			<h4 class="card-header">Physique</h4>
+			{% if p_list.count == 0 %}
+			<div class="card-body">
+	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}
+	  		</div>
+			{% endif %}
 			{% for chapitre in p_list %}
 				<div class="card-body">
 			    	<h6 class="card-title"><ul><li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></li></ul></h6>
 			  	</div>
 			{% endfor %}
 		</div>
+		</div>
+	</div>
 {% endblock %}
