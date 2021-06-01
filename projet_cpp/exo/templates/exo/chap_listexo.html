@@ -31,7 +31,7 @@
     <ul>
         {% if exercice.difficulte == null %}
         <li>
-        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}<!-- Exercice {{ exercice.nom }} --></a>
+        <a href="{{ exercice.get_absolute_url }}"><!-- {{ exercice.nom }} -->Exercice {{ exercice.id }}</a>
         {% for fichier in fichiers %}
         <ul>
             {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
@@ -77,7 +77,7 @@ $('#correction > a').click(function(){
 
         {% elif exercice.difficulte == 1 %}
         <li>
-        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a> ({% include './icons/star-fill.svg'%})
+        <a href="{{ exercice.get_absolute_url }}">Exercice {{ exercice.id }}</a> ({% include './icons/star-fill.svg'%})
         {% for fichier in fichiers %}
         <ul>
             {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
@@ -138,7 +138,7 @@ $('#correction > a').click(function(){
 
         {% elif exercice.difficulte == 2 %}
         <li>
-        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a> ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})
+        <a href="{{ exercice.get_absolute_url }}">Exercice {{ exercice.id }}</a> ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})
         {% for fichier in fichiers %}
         <ul>
             {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
@@ -199,7 +199,7 @@ $('#correction > a').click(function(){
 
         {% elif exercice.difficulte == 3 %}
         <li>
-        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a> ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})
+        <a href="{{ exercice.get_absolute_url }}">Exercice {{ exercice.id }}</a> ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})
         {{% for fichier in fichiers %}
         <ul>
             {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
