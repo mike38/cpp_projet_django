@@ -29,7 +29,8 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import View, UpdateView
 from django.contrib.auth.models import User
 from .utils import token_generator
-
+from .filters import ExerciceFilter
+from django.core.paginator import Paginator
 
 def home(request):
     return render(request, 'exo/home.html', {})
@@ -287,3 +288,10 @@ def supp_fichier(request, pk):
 	if request.method == "POST":
 		fichier.delete()
 	return redirect('exercice-details', exercice_id = exercice_id)
+
+def exercice_filtres(request):
+	exercices = Exercice.objects.all()
+	myFilter = ExerciceFilter(request.GET, queryset=exercices)
+	exercices = myFilter.qs
+	context = {'exercices': exercices, 'myFilter': myFilter}
+	return render(request, 'exo/exercice_filtres.html', context)

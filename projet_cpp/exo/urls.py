@@ -25,5 +25,6 @@ urlpatterns = [
     path('edit_ex/<int:exercice_id>', views.exercice_edit, name='edit_ex'),
     path('edit_fichier/<int:pk>', views.edit_fichier, name='edit_fichier'),
     path('supp_fichier/<int:pk>', views.supp_fichier, name='supp_fichier'),
+    path('filtres/', views.exercice_filtres, name='exercice_filtres'),
     
 ]

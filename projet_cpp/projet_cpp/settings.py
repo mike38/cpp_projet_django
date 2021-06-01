@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'taggit',
     'whoosh',
     'haystack',
-    'crispy_forms'
+    'crispy_forms',
+    'django_filters',
 ]
 
 

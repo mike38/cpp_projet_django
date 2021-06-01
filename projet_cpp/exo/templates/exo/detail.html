@@ -16,7 +16,7 @@
 	{% else %}
 		<h5>Année : <a href="{% url '2A' %}">{{ exercice.chapitre.annee }}</a></h5>
 	{% endif %}
-	<h5>Tags : </h5>
+	<h5>Tags : {{exercice.tags.all|join:", "}} </h5>
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
 	<div class="container-fluid"><div class="card">
@@ -53,7 +53,7 @@
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
 	  <div class="btn-group" role="group">
-		<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+		<a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
 		<form method="post" action="{% url 'supp_fichier' fichier.pk %}">
 			{% csrf_token %}
 			<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -78,7 +78,7 @@ $('#correction > a').click(function(){
     {% if group.name == 'prof'%}
     	<li> Image :
         <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
           <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -98,7 +98,7 @@ $('#correction > a').click(function(){
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
           <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -124,7 +124,7 @@ $('#correction > a').click(function(){
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
           <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -142,7 +142,7 @@ $('#correction > a').click(function(){
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
           <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -160,7 +160,7 @@ $('#correction > a').click(function(){
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
           <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -178,7 +178,7 @@ $('#correction > a').click(function(){
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
           <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
@@ -196,7 +196,7 @@ $('#correction > a').click(function(){
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
+          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
           <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
