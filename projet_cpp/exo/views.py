@@ -53,6 +53,25 @@ def numerotation(request, curr):
 	exo_chap = Exercice.objects.filter(matiere='curr').order_by('id')
 	return render(request, 'exo/detail.html', {'exo_chap' : exo_chap})
 
+def generate_sequence_label(numero_pk):
+    sequence_id = Exercice.objects.filter(numero__pk=numero_pk).aggregate(
+        Max("sequence_label")
+    )["sequence_label__max"]
+
+    if not sequence_id:
+        sequence_id = 1
+
+    while Exercice.objects.filter(
+        numero__pk=numero_pk, sequence_label=sequence_id
+    ).exists():
+        sequence_id += 1
+    return render (request, 'exo/detail.html', {'sequence_id' : sequence_id})
+
+
+def num(request):
+	nb_exo = Exercice.objects.all()
+	return render(request, 'exo/detail.html', {'nb_exo' : nb_exo})
+
 @unauthenticated_user
 def register(request):
     if request.method == 'POST':

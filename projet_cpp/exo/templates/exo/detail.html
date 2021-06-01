@@ -2,13 +2,16 @@
 
 {% block content %}
 	{% if exercice.difficulte == null %}
-        <h1>Exercice {{ exercice.nom }}</h1>
+        <h1>Exercice {{ nb_exo }}</h1>
         {% elif exercice.difficulte == 1 %}
-        <h1>Exercice {{ exercice.nom }} {% include './icons/star-fill.svg'%}</h1>
+        <h1>Exercice {{ nb_exo }} {% include './icons/star-fill.svg'%}</h1>
         {% elif exercice.difficulte == 2 %}
-        <h1>Exercice {{ exercice.id }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+        <h1>Exercice {{ nb_exo }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
         {% elif exercice.difficulte == 3 %}
-        <h1>Exercice {{ exercice.nom }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+        <h1>Exercice {{ nb_exo }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+    {% endif %}
+    {% if exercice.nom != None %}
+    <h5>Nom : {{ exercice.nom }}</h5>
     {% endif %}
 	<h5>Chapitre : <a href="{{ exercice.chapitre.get_absolute_url }}">{{ exercice.chapitre.nom }}</a></h5>
 	{% if exercice.chapitre.annee == '1A' %}
@@ -110,14 +113,6 @@ $('#correction > a').click(function(){
 		</li>
 			{% elif fichier.correction == "Non" %}
 		<li>
-		<!-- <div class="d-grid gap-2 d-md-block">
-	      <button class="btn btn-outline-light" type="button"><a href="{{ fichier.file.url }}">{{ fichier.get_format_display }}</a></button>
-	      <button class="btn btn-outline-warning" type="button"><a href="{{ fichier.get_absolute_url }}">Modifier le format</a>  </button>
-	      <button><form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-					{% csrf_token %}
-					<button type="submit" class="btn btn-outline-danger">Supprimer le fichier</button>
-				</form></button>
-	    </div> -->
 	    PDF : 
 		<div class="btn-group" role="group">
 			  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a> 

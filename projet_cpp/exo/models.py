@@ -27,19 +27,19 @@ class Chapitre(models.Model):
 
 
 class Exercice(models.Model):
-    nom = models.CharField(max_length=200, null=False)
+    nom = models.CharField(max_length=200, null=True, blank=True)
     tags = TaggableManager()
-    difficulte = models.IntegerField(null=True, choices = ((1, '*'), (2, '**'),
+    difficulte = models.IntegerField(null=True, blank=True, choices = ((1, '*'), (2, '**'),
         (3, '***')))
     chapitre = models.ForeignKey(Chapitre, on_delete = models.CASCADE)
-    provenance = models.CharField(max_length=200, default='')
-    #numero = models.IntegerField(default=1)
+    provenance = models.CharField(max_length=200, default='', null=True, blank=True)
+    numero = models.IntegerField(default=1)
 
     def get_absolute_url(self):
         return reverse('exercice-details', args=[str(self.id)])
 
     def __str__(self):
-        return self.nom + ' (' + self.chapitre.nom + ')'
+        return 'Exercice' + ' (' + self.chapitre.nom + ')'
 
 
 class Fichier(models.Model):
