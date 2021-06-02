@@ -8,5 +8,6 @@ class ExerciceFilter(django_filters.FilterSet):
             'nom': ['icontains'],
             'difficulte': ['exact'],
             'chapitre': ['exact'],
+            'tags__name': ['icontains']
         }
         

@@ -17,7 +17,7 @@
     </div>
     <div class="card-body">
     <div class="btn-group" role="group">
-    <a href="{% url 'new_ex' %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
+    <a href="{% url 'new_exchap' chapitre.id %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
         <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
   </div>
     </div></div>    
@@ -56,7 +56,7 @@
           {% if group.name == 'prof'%}
           <div class="container-fluid">
             <div class="btn-group" role="group">
-            <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+            <a href="{% url 'nouv_fichier' exercice.id %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
             <a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
               <a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
             </div>
@@ -93,7 +93,7 @@
           {% if group.name == 'prof'%}
           <div class="container-fluid">
             <div class="btn-group" role="group">
-            <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+            <a href="{% url 'nouv_fichier' exercice.id %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
             <a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
               <a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
             </div>
@@ -128,7 +128,7 @@
           {% if group.name == 'prof'%}
           <div class="container-fluid">
             <div class="btn-group" role="group">
-            <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+            <a href="{% url 'nouv_fichier' exercice.id %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
             <a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
               <a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
             </div>
@@ -163,7 +163,7 @@
           {% if group.name == 'prof'%}
           <div class="container-fluid">
             <div class="btn-group" role="group">
-            <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+            <a href="{% url 'nouv_fichier' exercice.id %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
             <a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
               <a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
             </div>

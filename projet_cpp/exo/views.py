@@ -185,15 +185,16 @@ def search_chap(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'prof'])
-def upload_fichier(request):
+def upload_fichier(request, pk):
+	exercice = Exercice.objects.get(id=pk)
 	if request.method == "POST":
-		form = FichierForm(request.POST , request.FILES)
+		form = FichierForm(request.POST , request.FILES, initial={'exercice': exercice})
 		if form.is_valid():
 			fichier = form.save(commit = False)
 			fichier.save()
 			return redirect('exercice-details', exercice_id = fichier.exercice.pk)
 	else:
-		form = FichierForm()
+		form = FichierForm(initial={'exercice': exercice})
 	return render(request, 'exo/up_fichier.html', {'form': form,})
 
 @login_required(login_url='login')
@@ -215,6 +216,21 @@ def add_ex(request):
 			return redirect('exercice-details', exercice_id = exercice.pk)
 	else:
 		form = ExerciceForm()
+	return render(request, 'exo/new_ex.html', {'form': form,})
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
+def add_exchap(request, pk):
+	chapitre = Chapitre.objects.get(id=pk)
+	if request.method == "POST":
+		form = ExerciceForm(request.POST, initial={'chapitre': chapitre})
+		if form.is_valid():
+			exercice = form.save(commit=False)
+			exercice.save()
+			form.save_m2m()
+			return redirect('exercice-details', exercice_id = exercice.pk)
+	else:
+		form = ExerciceForm(initial={'chapitre': chapitre})
 	return render(request, 'exo/new_ex.html', {'form': form,})
 
 @login_required(login_url='login')
