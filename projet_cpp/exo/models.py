@@ -14,13 +14,12 @@ class Chapitre(models.Model):
         ('2A', 'Deuxième année')])
     matiere = models.CharField(max_length=40, choices = MATIERES)
     nom = models.CharField(max_length=200, null=False, unique=True)
-    numero = models.IntegerField(null=True, error_messages={"invalid_choice" : "Ce numéro de chapitre existe déjà."},
-        help_text="Vous pouvez numéroter le chapitre/module \
+    numero = models.IntegerField(null=True, help_text="Numérotez le chapitre/module \
         pour permettre un classement dans l'ordre du programme (recommandé, \
-        la valeur par défaut est 1)", default=1, unique=True)
+        la valeur par défaut est 1)", default=1)
 
     def __str__(self):
-        return self.nom #+ ' (' + self.matiere + ')'
+        return self.nom + ' (' + self.matiere + ')'
 
     def get_absolute_url(self):
         return reverse('chapitre-details', args=[str(self.id)])
@@ -33,13 +32,14 @@ class Exercice(models.Model):
         (3, '***')))
     chapitre = models.ForeignKey(Chapitre, on_delete = models.CASCADE)
     provenance = models.CharField(max_length=200, default='', null=True, blank=True)
-    numero = models.IntegerField(default=1)
 
     def get_absolute_url(self):
         return reverse('exercice-details', args=[str(self.id)])
 
     def __str__(self):
-        return 'Exercice' + ' (' + self.chapitre.nom + ')'
+        if self.nom == None :
+            return 'Exercice ' + str(self.id) + ' (' + self.chapitre.nom + ')'
+        return self.nom + ' (' + self.chapitre.nom + ')'
 
 
 class Fichier(models.Model):
@@ -49,7 +49,6 @@ class Fichier(models.Model):
     exercice = models.ForeignKey(Exercice, related_name = 'fichier',
         on_delete = models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
     correction = models.CharField(max_length=3, choices = [('Oui', 'Oui'), ('Non', 'Non')], default='Non')
 
 

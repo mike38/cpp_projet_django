@@ -1,14 +1,14 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-	<h1>{{ chapitre.matiere }} - Chapitre n°{{chapitre.numero}} : {{ chapitre.nom }}</h1>
-  	{% if exercices.count == 0 %}
-	  		<p>
+  <h1>{{ chapitre.matiere }} - Chapitre n°{{chapitre.numero}} : {{ chapitre.nom }}</h1>
+    {% if exercices.count == 0 %}
+        <p>
           Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}
         </p>
     {% else %}
     <h6>Voici les exercices disponibles pour ce chapitre !</h6>
-		{% endif %}
+    {% endif %}
 {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
     <div class="container-fluid"><div class="card w-75">
@@ -30,232 +30,146 @@
 {% for exercice in exercices %}
     <ul>
         {% if exercice.difficulte == null %}
-        <li>
-        <a href="{{ exercice.get_absolute_url }}"><!-- {{ exercice.nom }} -->Exercice {{ exercice.id }}</a>
+          {% if exercice.nom == None %}
+          <li>
+          <a href="{{ exercice.get_absolute_url }}">Exercice {{ exercice.id }}</a>
+          {% else %}
+          <li>
+          <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a>
+          {% endif %}
         {% for fichier in fichiers %}
         <ul>
-            {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
-              {% if fichier.format == "i" %}
-              {% if fichier.correction == "Oui" %}
-    <li>
-            <div id="correction">
-        <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
-      <div style="display: none"> <!-- pour que ce soit replié par défaut -->
-        <img src="{{ fichier.file.url }}" alt="correction" width="750">
-  {% for group in request.user.groups.all %}
-    {% if group.name == 'prof'%}
-        <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
-          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-          </form>
-        </div>
-    {% endif %}
-  {% endfor %}
-      </div>
-    </li>
-<br/>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript">
-$('#correction > a').click(function(){
-    $(this).next().next().slideToggle();
-    return false;
-});
-</script> 
-            {% elif fichier.correction == "Non" %}
-            <img src="{{ fichier.file.url }}" alt="énoncé" width="750">
+          {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
+            {% if fichier.format == "i" %}
+                {% if fichier.correction == "Non" %}
+                    <img src="{{ fichier.file.url }}" alt="énoncé" width="750">
+                {% endif %}
+            {% elif fichier.format == "p" and fichier.correction == "Non" %}
+              <li>
+              PDF : 
+                  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a>
             {% endif %}
-        <ul>
-        {% endif %}
-      </ul>
-        {% endif %}
-      </ul></li>
+          {% endif %}
+        </ul></li>
+        {% endfor %}
+        {% for group in request.user.groups.all %}
+          {% if group.name == 'prof'%}
+          <div class="container-fluid">
+            <div class="btn-group" role="group">
+            <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+            <a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
+              <a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
+            </div>
+          </div>
+          {% endif %}
         {% endfor %}
 
 
 
         {% elif exercice.difficulte == 1 %}
-        <li>
-        <a href="{{ exercice.get_absolute_url }}">Exercice {{ exercice.id }}</a> ({% include './icons/star-fill.svg'%})
+          {% if exercice.nom == None %}
+          <li>
+          <a href="{{ exercice.get_absolute_url }}">Exercice {{ exercice.id }} ({% include './icons/star-fill.svg'%})</a></li>
+          {% else %}
+          <li>
+          <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }} ({% include './icons/star-fill.svg'%})</a></li>
+          {% endif %}
         {% for fichier in fichiers %}
         <ul>
             {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
-              {% if fichier.format == "i" %}
-              {% if fichier.correction == "Oui" %}
-
-    <!-- CORRECTION -->
-      <li>
-            <div id="correction">
-        <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
-      <div style="display: none"> <!-- pour que ce soit replié par défaut -->
-        <img src="{{ fichier.file.url }}" alt="correction" width="750">
-  {% for group in request.user.groups.all %}
-    {% if group.name == 'prof'%}
-        <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
-          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-          </form>
-        </div>
-    {% endif %}
-  {% endfor %}
-      </div>
-    </li>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript">
-$('#correction > a').click(function(){
-    $(this).next().next().slideToggle();
-    return false;
-});
-</script> 
-
-        {% elif fichier.correction == "Non" %}
-            <img src="{{ fichier.file.url }}" alt="énoncé" width="750">
-        {% endif %}
-
-    <!-- PLUS -->
-    {% elif fichier.format == "p" %}
-    <li>      
-          {% if fichier.correction == "Oui" %}
-        PDF : 
-        <div class="btn">
-            <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Correction</a> 
-        </div>
-          {% elif fichier.correction == "Non" %}
-        PDF : 
-            <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a>
-        {% endif %}
-        {% endif %}
-        {% endif %}
+            {% if fichier.format == "i" %}
+                {% if fichier.correction == "Non" %}
+                    <img src="{{ fichier.file.url }}" alt="énoncé" width="750">
+                {% endif %}
+            {% elif fichier.format == "p" and fichier.correction == "Non" %}
+              <li>
+              PDF : 
+                  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a>
+            {% endif %}
+          {% endif %}
       </ul>
         {% endfor %}
-        </li>
-    </li>
-<br/>
-
+        {% for group in request.user.groups.all %}
+          {% if group.name == 'prof'%}
+          <div class="container-fluid">
+            <div class="btn-group" role="group">
+            <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+            <a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
+              <a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
 
         {% elif exercice.difficulte == 2 %}
-        <li>
-        <a href="{{ exercice.get_absolute_url }}">Exercice {{ exercice.id }}</a> ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})
+          {% if exercice.nom == None %}
+          <li>
+          <a href="{{ exercice.get_absolute_url }}"><!-- {{ exercice.nom }} -->Exercice {{ exercice.id }} ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})</a>
+          {% else %}
+          <li>
+          <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }} ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})</a>
+          {% endif %}
         {% for fichier in fichiers %}
         <ul>
-            {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
-              {% if fichier.format == "i" %}
-              {% if fichier.correction == "Oui" %}
-
-    <!-- CORRECTION -->
-      <li>
-            <div id="correction">
-        <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
-      <div style="display: none"> <!-- pour que ce soit replié par défaut -->
-        <img src="{{ fichier.file.url }}" alt="correction" width="750">
-  {% for group in request.user.groups.all %}
-    {% if group.name == 'prof'%}
-        <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
-          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-          </form>
-        </div>
-    {% endif %}
-  {% endfor %}
-      </div>
-    </li>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript">
-$('#correction > a').click(function(){
-    $(this).next().next().slideToggle();
-    return false;
-});
-</script> 
-
-        {% elif fichier.correction == "Non" %}
-            <img src="{{ fichier.file.url }}" alt="énoncé" width="750">
-        {% endif %}
-
-    <!-- PLUS -->
-    {% elif fichier.format == "p" %}
-    <li>
-          {% if fichier.correction == "Oui" %}
-        PDF : 
-        <div class="btn">
-            <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Correction</a> 
-        </div>
-          {% elif fichier.correction == "Non" %}
-        PDF : 
-            <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a>
-        {% endif %}
-        {% endif %}
-        {% endif %}
+          {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
+            {% if fichier.format == "i" %}
+                {% if fichier.correction == "Non" %}
+                    <img src="{{ fichier.file.url }}" alt="énoncé" width="750">
+                {% endif %}
+            {% elif fichier.format == "p" and fichier.correction == "Non" %}
+              <li>
+              PDF : 
+                  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a>
+            {% endif %}
+          {% endif %}
       </ul>
         {% endfor %}
-        </li>
-    </li>
-<br/>
-
+        {% for group in request.user.groups.all %}
+          {% if group.name == 'prof'%}
+          <div class="container-fluid">
+            <div class="btn-group" role="group">
+            <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+            <a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
+              <a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
 
         {% elif exercice.difficulte == 3 %}
-        <li>
-        <a href="{{ exercice.get_absolute_url }}">Exercice {{ exercice.id }}</a> ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})
+          {% if exercice.nom == None %}
+          <li>
+          <a href="{{ exercice.get_absolute_url }}"><!-- {{ exercice.nom }} -->Exercice {{ exercice.id }} ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})</a>
+          {% else %}
+          <li>
+          <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }} ({% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%})</a>
+          {% endif %}
         {{% for fichier in fichiers %}
         <ul>
-            {% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
-              {% if fichier.format == "i" %}
-              {% if fichier.correction == "Oui" %}
-
-    <!-- CORRECTION -->
-      <li>
-            <div id="correction">
-        <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
-      <div style="display: none"> <!-- pour que ce soit replié par défaut -->
-        <img src="{{ fichier.file.url }}" alt="correction" width="750">
-  {% for group in request.user.groups.all %}
-    {% if group.name == 'prof'%}
-        <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le format</a>
-          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-          </form>
-        </div>
-    {% endif %}
-  {% endfor %}
-      </div>
-    </li>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript">
-$('#correction > a').click(function(){
-    $(this).next().next().slideToggle();
-    return false;
-});
-</script> 
-
-        {% elif fichier.correction == "Non" %}
-            <img src="{{ fichier.file.url }}" alt="énoncé" width="750">
-        {% endif %}
-
-    <!-- PLUS -->
-    {% elif fichier.format == "p" %}
-    <li>        
-          {% if fichier.correction == "Oui" %}
-        PDF : 
-        <div class="btn">
-            <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Correction</a> 
-        </div>
-          {% elif fichier.correction == "Non" %}
-        PDF : 
-            <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a>
-        {% endif %}
-        {% endif %}
-        {% endif %}
+            {{% if fichier.exercice.chapitre == exercice.chapitre and fichier.exercice == exercice %}
+            {% if fichier.format == "i" %}
+                {% if fichier.correction == "Non" %}
+                    <img src="{{ fichier.file.url }}" alt="énoncé" width="750">
+                {% endif %}
+            {% elif fichier.format == "p" and fichier.correction == "Non" %}
+              <li>
+              PDF : 
+                  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a>
+            {% endif %}
+          {% endif %}
       </ul>
         {% endfor %}
-        </li>
-    </li>
-<br/>
+        {% for group in request.user.groups.all %}
+          {% if group.name == 'prof'%}
+          <div class="container-fluid">
+            <div class="btn-group" role="group">
+            <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
+            <a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
+              <a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
         {% endif %}
       </ul>
         {% endfor %}

@@ -40,37 +40,11 @@ def acces_interdit(request):
 
 class ExerciceListView(generic.ListView):
     model = Exercice
-    paginate_by = 8
+    paginate_by = 10
 
 def email_check(user):
     return user.email.endswith('@grenoble-inp.org') or user.email.endswith('@grenoble-inp.fr')
 
-def is_prof(user):
-    return user.groups.filter(name='Prof').exists()
-
-
-def numerotation(request, curr):
-	exo_chap = Exercice.objects.filter(matiere='curr').order_by('id')
-	return render(request, 'exo/detail.html', {'exo_chap' : exo_chap})
-
-def generate_sequence_label(numero_pk):
-    sequence_id = Exercice.objects.filter(numero__pk=numero_pk).aggregate(
-        Max("sequence_label")
-    )["sequence_label__max"]
-
-    if not sequence_id:
-        sequence_id = 1
-
-    while Exercice.objects.filter(
-        numero__pk=numero_pk, sequence_label=sequence_id
-    ).exists():
-        sequence_id += 1
-    return render (request, 'exo/detail.html', {'sequence_id' : sequence_id})
-
-
-def num(request):
-	nb_exo = Exercice.objects.all()
-	return render(request, 'exo/detail.html', {'nb_exo' : nb_exo})
 
 @unauthenticated_user
 def register(request):
@@ -265,7 +239,7 @@ def chap_detail(request, chapitre_id):
 
 class ChapitreListView(generic.ListView):
     model = Chapitre
-    paginate_by = 4
+    paginate_by = 10
     ordering = ['nom']
 
 @login_required(login_url='login')

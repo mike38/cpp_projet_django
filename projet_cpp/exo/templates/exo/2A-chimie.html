@@ -13,7 +13,7 @@
 			{% for chapitre in c_list %}
 				<div class="card-body">
 					<li>
-			    	<h6 class="card-title"><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></h6>
+			    	<a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a>
 			    	</li>
 			  	</div>
 			{% endfor %}

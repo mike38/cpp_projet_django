@@ -7,9 +7,14 @@
 <button class="btn-secondary" type="submit">{% include './icons/search.svg'%}</button>    
 </form>
 
+<br/>
 {% for exercice in exercices %}
     <li>
-        <a href="{{ exercice.get_absolute_url }}"> Exercice {{ exercice.id }}</a> ({{exercice.chapitre.nom }})
+        {% if exercice.nom == None %}
+        <a href="{{ exercice.get_absolute_url }}"> Exercice {{ exercice.id }}</a> ({{ exercice.chapitre.nom }})
+        {% else %}
+        <a href="{{ exercice.get_absolute_url }}">{{ exercice.nom }}</a> ({{ exercice.chapitre.nom }})
+        {% endif %}
     </li>
 {% endfor %}
 

@@ -14,11 +14,13 @@
 	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}
 	  			</div>
 			  {% endif %}
+			<ul>
 			{% for chapitre in c_list %}
 				<div class="card-body">
-			    	<h6 class="card-title"><ul><li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></li></ul></h6>
+			    	<li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></li>
 			  	</div>
 			{% endfor %}
+			</ul>
 		</div>
 		</div>
 		<br/>
@@ -30,11 +32,13 @@
 	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}
 	  			</div>
 			  {% endif %}
+			<ul>
 			{% for chapitre in m_list %}
 				<div class="card-body">
-			    	<h6 class="card-title"><ul><li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></li></ul></h6>
+			    	<li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></li>
 			  	</div>
 			{% endfor %}
+			</ul>
 		</div>
 		</div>
 		<br/>
@@ -46,12 +50,16 @@
 	  			Aucun exercice pour le moment ! Patientez un peu, ils arrivent bientôt {% include './icons/emoji-wink.svg'%}
 	  			</div>
 			  {% endif %}
+			<ul>
 			{% for chapitre in p_list %}
 				<div class="card-body">
-			    	<h6 class="card-title"><ul><li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></li></ul></h6>
+			    	<li><a href="{{ chapitre.get_absolute_url }}">{{ chapitre.numero }}) {{ chapitre.nom }}</a></li>
 			  	</div>
 			{% endfor %}
+			</ul>
 		</div>
 		</div>
+		<br/>
+		<br/>
 	</div>
 {% endblock %}

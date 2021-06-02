@@ -2,16 +2,29 @@
 
 {% block content %}
 	{% if exercice.difficulte == null %}
-        <h1>Exercice {{ nb_exo }}</h1>
-        {% elif exercice.difficulte == 1 %}
-        <h1>Exercice {{ nb_exo }} {% include './icons/star-fill.svg'%}</h1>
-        {% elif exercice.difficulte == 2 %}
-        <h1>Exercice {{ nb_exo }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
-        {% elif exercice.difficulte == 3 %}
-        <h1>Exercice {{ nb_exo }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
-    {% endif %}
-    {% if exercice.nom != None %}
-    <h5>Nom : {{ exercice.nom }}</h5>
+        {% if exercice.nom == None %}
+        <h1>Exercice {{ exercice.id }}</h1>
+        {% else %}
+        <h1>{{ exercice.nom }}</h1>
+        {% endif %}
+    {% elif exercice.difficulte == 1 %}
+    	{% if exercice.nom == None %}
+    	<h1>Exercice {{ exercice.id }} {% include './icons/star-fill.svg'%}</h1>
+    	{% else %}
+    	<h1>{{ exercice.nom }} {% include './icons/star-fill.svg'%}</h1>
+    	{% endif %}
+    {% elif exercice.difficulte == 2 %}
+    	{% if exercice.nom == None %}
+    	<h1>Exercice {{ exercice.id }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+    	{% else %}
+    	<h1>{{ exercice.nom }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+    	{% endif %}
+    {% elif exercice.difficulte == 3 %}
+    	{% if exercice.nom == None %}
+    	<h1>Exercice {{ exercice.id }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+    	{% else %}
+    	<h1>{{ exercice.nom }} {% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}{% include './icons/star-fill.svg'%}</h1>
+    	{% endif %}
     {% endif %}
 	<h5>Chapitre : <a href="{{ exercice.chapitre.get_absolute_url }}">{{ exercice.chapitre.nom }}</a></h5>
 	{% if exercice.chapitre.annee == '1A' %}
@@ -27,10 +40,6 @@
   		<h4>Actions</h4>
   	</div>
   	<div class="card-body">
-  	<!-- <a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
-	<a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
-  	<a href="{% url 'supp_ex' exercice.id %}" class="btn btn-outline-danger btn-sm">Supprimer l'exercice</a>
-  	<a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a> -->
   	<div class="btn-group" role="group">
 		<a href="{% url 'newformat' %}" class="btn btn-outline-success btn-sm">Ajouter un format</a>
 		<a href="{% url 'edit_ex' exercice.id %}" class="btn btn-warning btn-sm">Modifier l'exercice</a>
@@ -45,11 +54,28 @@
 	<div style="margin:0px; margin-top:0px; font-size: 14pt;"><div class="quotetitle">Provenance : <input type="button" value="Afficher" style="width:45px;font-size:10px;margin:0px;padding:0px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';        this.innerText = ''; this.value = 'Cacher'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Afficher'; }" /></div><div class="quotecontent"><div style="display: none;">{{ exercice.provenance }}</div></div></div>
 	<br/>
 	<h5>Utilisations : </h5>
+	<br/>
+	<h4>Énoncé :</h4>
 	  {% for fichier in fichiers %}	
 		{% if fichier.format == "i" %}
-		{% if fichier.correction == "Oui" %}
-  
-			<div id="correction">
+		{% if fichier.correction == "Non" %}
+					<img src="{{ fichier.file.url }}" alt="énoncé" width="750"> 
+			  {% for group in request.user.groups.all %}
+			    {% if group.name == 'prof'%}
+			    	<li> Image :
+			        <div class="btn-group" role="group">
+			          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
+			          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
+			            {% csrf_token %}
+			            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
+			          </form>
+			        </div>
+			    {% endif %}
+			  {% endfor %}
+					</li>
+		{% elif fichier.correction == "Oui" %}
+		<li>
+  	<div id="correction">
 	  <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
 	<div style="display: none"> <!-- pour que ce soit replié par défaut -->
 	  <img src="{{ fichier.file.url }}" alt="correction" width="750">
@@ -62,9 +88,10 @@
 			<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
 		</form>
 	</div>
+			
 	{% endif %}
   {% endfor %}
-	</div>
+	</div></li>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript">
@@ -73,23 +100,7 @@ $('#correction > a').click(function(){
     return false;
 });
 </script>
-{% elif fichier.correction == "Non" %}
-<br/>
-<h4>Énoncé :</h4>
-		<img src="{{ fichier.file.url }}" alt="énoncé" width="750"> 
-  {% for group in request.user.groups.all %}
-    {% if group.name == 'prof'%}
-    	<li> Image :
-        <div class="btn-group" role="group">
-          <a href="{{ fichier.get_absolute_url }}" class="btn btn-outline-warning btn-sm">Modifier le fichier</a>
-          <form method="post" action="{% url 'supp_fichier' fichier.pk %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
-          </form>
-        </div>
-    {% endif %}
-  {% endfor %}
-		</li>
+
 		{% endif %}
 		{% elif fichier.format == "p" %}
 	<br/>
