@@ -11,15 +11,17 @@
     {% endif %}
 {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
-    <div class="container-fluid"><div class="card w-75">
+    <div class="container-fluid"><div class="card">
     <div class="card-header">
       <h4>Actions</h4>
     </div>
     <div class="card-body">
     <div class="btn-group" role="group">
-    <a href="{% url 'new_exchap' chapitre.id %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
-        <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
-  </div>
+      <a href="{% url 'new_exchap' chapitre.id %}" class="btn btn-outline-success btn-sm">Ajouter un exercice</a>
+      <a href="{% url 'edit_chap' chapitre.id %}" class="btn btn-warning btn-sm">Modifier le chapitre</a>
+      <a href="{% url 'supp_chap' chapitre.id %}" class="btn btn-outline-danger btn-sm">Supprimer le chapitre</a>
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+    </div>
     </div></div>    
   </div>
     {% endif %}

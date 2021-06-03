@@ -74,7 +74,7 @@
 			  {% endfor %}
 					</li>
 		{% elif fichier.correction == "Oui" %}
-		<li>
+		<p class="tab">
   	<div id="correction">
 	  <a href="{{ fichier.file.url }}" >{{ "Voir la correction" }} {% include '../exo/icons/chevron-down.svg' %}</a><br/>
 	<div style="display: none"> <!-- pour que ce soit replié par défaut -->
@@ -88,10 +88,9 @@
 			<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer le fichier</button>
 		</form>
 	</div>
-			
 	{% endif %}
   {% endfor %}
-	</div></li>
+	</div></p>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript">
@@ -103,7 +102,6 @@ $('#correction > a').click(function(){
 
 		{% endif %}
 		{% elif fichier.format == "p" %}
-	<br/>
 		{% if fichier.correction == "Oui" %}
 		<li>
 			PDF : 

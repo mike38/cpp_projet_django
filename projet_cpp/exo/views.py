@@ -206,6 +206,13 @@ def supp_ex(request, exercice_id):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'prof'])
+def supp_chap(request, chapitre_id):
+	chapitre = Chapitre.objects.get(pk=chapitre_id)
+	chapitre.delete()
+	return redirect('/chapitres/')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
 def add_ex(request):
 	if request.method == "POST":
 		form = ExerciceForm(request.POST)
@@ -272,7 +279,21 @@ def exercice_edit(request, exercice_id):
 	else:
 		form = ExerciceForm(instance=exercice)
 	return render(request, 'exo/edit_ex.html', {'form': form})
-	
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
+def chapitre_edit(request, chapitre_id):
+	chapitre = get_object_or_404(Chapitre, pk=chapitre_id)
+	if request.method == "POST":
+		form = ChapitreForm(request.POST, instance=chapitre)
+		if form.is_valid():
+			chapitre = form.save(commit=False)
+			chapitre.save()
+			form.save_m2m()
+			return redirect('chapitre-details', chapitre_id = chapitre.pk)
+	else:
+		form = ChapitreForm(instance=chapitre)
+	return render(request, 'exo/edit_chap.html', {'form': form})
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'prof'])
