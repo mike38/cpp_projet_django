@@ -47,3 +47,11 @@ class UserRegisterForm(UserCreationForm):
 		model = User
 		fields = ['username', 'email', 'password1', 'password2']
 
+class UtilisationForm(forms.ModelForm):
+    class Meta:
+        model = Utilisation
+        fields = '__all__'
+        help_texts = {
+            'type' : '(*) ex. DS P26, TD P27...',
+            'correction' : 'Cet exercice dispose-t-il d\'une correction?'
+        }

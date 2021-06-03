@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from datetime import date
 from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
-from .forms import FichierForm, ExerciceForm, ChapitreForm, UserRegisterForm
+from .forms import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -118,7 +118,8 @@ def logoutUser(request):
 def detail(request, exercice_id):
     exercice = get_object_or_404(Exercice, pk=exercice_id)
     return render(request, 'exo/detail.html', {'exercice': exercice,
-    	'fichiers': Fichier.objects.filter(exercice_id=exercice_id)},)
+    	'fichiers': Fichier.objects.filter(exercice_id=exercice_id),
+		'utilisations': Utilisation.objects.filter(exercice_id=exercice_id)},)
 
 @login_required(login_url='login')
 def all_1A(request):
@@ -177,7 +178,7 @@ def search_chap(request):
 	if request.method =="POST":
 		searched = request.POST.get('searched')
 		chapitres = Chapitre.objects.filter(nom__contains=searched)
-		exercices = Exercice.objects.filter(nom__contains=searched) | Exercice.objects.filter(tags__name__contains=searched)
+		exercices = Exercice.objects.filter(nom__contains=searched) | Exercice.objects.filter(tags__name__icontains=searched)
 		return render(request, 'exo/search_chap.html', {'searched' : searched,
 			'chapitres' : chapitres, 'exercices' : exercices})
 	return render(request, 'exo/search_chap.html')
@@ -319,9 +320,24 @@ def supp_fichier(request, pk):
 		fichier.delete()
 	return redirect('exercice-details', exercice_id = exercice_id)
 
+@login_required(login_url='login')
 def exercice_filtres(request):
 	exercices = Exercice.objects.all()
 	myFilter = ExerciceFilter(request.GET, queryset=exercices)
 	exercices = myFilter.qs
 	context = {'exercices': exercices, 'myFilter': myFilter}
 	return render(request, 'exo/exercice_filtres.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof'])
+def add_util(request, pk):
+	exercice = Exercice.objects.get(id=pk)
+	if request.method == "POST":
+		form = UtilisationForm(request.POST, initial={'exercice': exercice})
+		if form.is_valid():
+			exercice = form.save(commit=False)
+			exercice.save()
+			return redirect('exercice-details', exercice_id = exercice.pk)
+	else:
+		form = UtilisationForm(initial={'exercice': exercice})
+	return render(request, 'exo/new_util.html', {'form': form,})

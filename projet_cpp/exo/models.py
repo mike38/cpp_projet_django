@@ -70,7 +70,6 @@ class Utilisation(models.Model):
     type = models.CharField(max_length = 200, null = False)
     exercice = models.ForeignKey(Exercice, related_name = 'utilisation',
         on_delete = models.CASCADE)
-    fichier = models.ManyToManyField(Fichier, blank=True)
     correction = models.BooleanField()
 
 

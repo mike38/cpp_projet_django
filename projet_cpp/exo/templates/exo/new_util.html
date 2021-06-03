@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Ajouter une nouvelle utilisation</h1>
+  <p>Les champs avec un (*) sont obligatoires.</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="col-12">
+    <button type="submit" class="btn btn-warning">Enregistrer l'utilisation</button>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Retour à la page d'accueil</a>
+  </div>
+  </form>
+{% endblock %}

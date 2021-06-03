@@ -53,7 +53,14 @@
   {% endfor %}
 	<div style="margin:0px; margin-top:0px; font-size: 14pt;"><div class="quotetitle">Provenance : <input type="button" value="Afficher" style="width:45px;font-size:10px;margin:0px;padding:0px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';        this.innerText = ''; this.value = 'Cacher'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Afficher'; }" /></div><div class="quotecontent"><div style="display: none;">{{ exercice.provenance }}</div></div></div>
 	<br/>
-	<h5>Utilisations : </h5>
+	<h5>Utilisations : 
+		{% for utilisation in utilisations %}
+		{{ utilisation.type }}
+		{% endfor %}
+		<div class="btn-group" role="group">
+			<a href="{% url 'new_util' exercice.id %}" class="btn btn-outline-success btn-sm">Ajouter une utilisation</a>
+		</div>
+	</h5>
 	<br/>
 	<h4>Énoncé :</h4>
 	  {% for fichier in fichiers %}	

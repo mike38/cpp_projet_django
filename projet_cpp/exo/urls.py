@@ -29,5 +29,6 @@ urlpatterns = [
     path('edit_fichier/<int:pk>', views.edit_fichier, name='edit_fichier'),
     path('supp_fichier/<int:pk>', views.supp_fichier, name='supp_fichier'),
     path('filtres/', views.exercice_filtres, name='exercice_filtres'),
+    path('addutil/<int:pk>', views.add_util, name='new_util'),
     
 ]
