@@ -32,6 +32,7 @@ from .utils import token_generator
 from .filters import ExerciceFilter
 from django.core.paginator import Paginator
 
+@login_required(login_url='login')
 def home(request):
     return render(request, 'exo/home.html', {})
 
@@ -44,7 +45,6 @@ class ExerciceListView(generic.ListView):
 
 def email_check(user):
     return user.email.endswith('@grenoble-inp.org') or user.email.endswith('@grenoble-inp.fr')
-
 
 @unauthenticated_user
 def register(request):
@@ -115,6 +115,7 @@ def logoutUser(request):
 	return redirect('login')
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def detail(request, exercice_id):
     exercice = get_object_or_404(Exercice, pk=exercice_id)
     return render(request, 'exo/detail.html', {'exercice': exercice,
@@ -122,6 +123,7 @@ def detail(request, exercice_id):
 		'utilisations': Utilisation.objects.filter(exercice_id=exercice_id)},)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def all_1A(request):
 	prem_list = Chapitre.objects.filter(annee='1A').order_by('matiere', 'numero')
 	m_list = Chapitre.objects.filter(annee='1A').filter(matiere='Maths').order_by('numero')
@@ -130,24 +132,26 @@ def all_1A(request):
 	return render(request, 'exo/1A.html', {'prem_list' : prem_list, 'm_list' : m_list,
 		'p_list' : p_list, 'c_list' : c_list})
 
-@user_passes_test(email_check)
-# @wrong_email
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def maths_1A(request):
 	m_list = Chapitre.objects.filter(annee='1A').filter(matiere='Maths').order_by('numero')
 	return render(request, 'exo/1A-maths.html', {'m_list' : m_list})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def phys_1A(request):
 	p_list = Chapitre.objects.filter(annee='1A', matiere='Physique').order_by('numero')
 	return render(request, 'exo/1A-physique.html', {'p_list' : p_list})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def chim_1A(request):
 	c_list = Chapitre.objects.filter(annee='1A', matiere='Chimie').order_by('numero')
 	return render(request, 'exo/1A-chimie.html', {'c_list' : c_list})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def all_2A(request):
 	deux_list = Chapitre.objects.filter(annee='2A').order_by('matiere', 'numero')
 	m_list = Chapitre.objects.filter(annee='2A').filter(matiere='Maths').order_by('numero')
@@ -157,21 +161,25 @@ def all_2A(request):
 		'p_list' : p_list, 'c_list' : c_list})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def maths_2A(request):
 	m_list = Chapitre.objects.filter(annee='2A').filter(matiere='Maths').order_by('numero')
 	return render(request, 'exo/2A-maths.html', {'m_list' : m_list})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def phys_2A(request):
 	p_list = Chapitre.objects.filter(annee='2A', matiere='Physique').order_by('numero')
 	return render(request, 'exo/2A-physique.html', {'p_list' : p_list})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def chim_2A(request):
 	c_list = Chapitre.objects.filter(annee='2A', matiere='Chimie').order_by('numero')
 	return render(request, 'exo/2A-chimie.html', {'c_list' : c_list})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def search_chap(request):
 	#exercice = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_chap', ''))
 	#return render_to_response('')
@@ -255,6 +263,7 @@ def add_chap(request):
 	return render(request, 'exo/new_chap.html', {'form': form,})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def chap_detail(request, chapitre_id):
 	chapitre = get_object_or_404(Chapitre, pk = chapitre_id)
 	return render(request, 'exo/chap_listexo.html', {'chapitre': chapitre, 
@@ -321,6 +330,7 @@ def supp_fichier(request, pk):
 	return redirect('exercice-details', exercice_id = exercice_id)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'prof', 'etudiant'])
 def exercice_filtres(request):
 	exercices = Exercice.objects.all()
 	myFilter = ExerciceFilter(request.GET, queryset=exercices)

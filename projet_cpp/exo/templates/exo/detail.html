@@ -131,7 +131,7 @@ $('#correction > a').click(function(){
 		<li>
 	    PDF : 
 		<div class="btn-group" role="group">
-			  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Fichier</a> 
+			  <a href="{{ fichier.file.url }}" class="btn btn-sm btn-outline-light">Énoncé</a> 
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
@@ -167,7 +167,7 @@ $('#correction > a').click(function(){
 	    <li>
 	    Fichier tex : 
 		<div class="btn-group" role="group">
-			  <a href="{{ fichier.file.url }}" class="btn btn-outline-info">Fichier</a> 
+			  <a href="{{ fichier.file.url }}" class="btn btn-outline-info">Énoncé</a> 
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
@@ -203,7 +203,7 @@ $('#correction > a').click(function(){
 	    <li>
 	    Fichier docx : 
 		<div class="btn-group" role="group">
-			  <a href="{{ fichier.file.url }}" class="btn btn-outline-info">Fichier</a> 
+			  <a href="{{ fichier.file.url }}" class="btn btn-outline-info">Énoncé</a> 
   {% for group in request.user.groups.all %}
     {% if group.name == 'prof'%}
         <div class="btn-group" role="group">
