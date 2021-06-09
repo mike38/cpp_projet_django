@@ -57,9 +57,7 @@
 		{% for utilisation in utilisations %}
 		{{ utilisation.type }}
 		{% endfor %}
-		<div class="btn-group" role="group">
-			<a href="{% url 'new_util' exercice.id %}" class="btn btn-outline-success btn-sm">Ajouter une utilisation</a>
-		</div>
+			<a href="{% url 'new_util' exercice.id %}">{% include '../exo/icons/plus-circle-fill.svg' %} Ajouter une utilisation</a>
 	</h5>
 	<br/>
 	<h4>Énoncé :</h4>
