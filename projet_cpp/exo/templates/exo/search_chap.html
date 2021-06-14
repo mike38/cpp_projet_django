@@ -13,8 +13,7 @@
 		{% endif %}
 		{% for chapitres in chapitres %}
 			<ul>
-				<li><a href="{{ chapitres.get_absolute_url }}">{{ chapitres.numero }}) {{ chapitres }} - {{ chapitres.matiere }}
-			({{ chapitres.annee }})</a></li>
+				<li><a href="{{ chapitres.get_absolute_url }}">{{ chapitres.numero }}) {{ chapitres }} - {{ chapitres.annee }}</a></li>
 			</ul>
 		{% endfor %}
 	<p><br/></p>
