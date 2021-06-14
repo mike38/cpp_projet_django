@@ -342,12 +342,13 @@ def exercice_filtres(request):
 @allowed_users(allowed_roles=['admin', 'prof'])
 def add_util(request, pk):
 	exercice = Exercice.objects.get(id=pk)
+	exercice_id = exercice.pk
 	if request.method == "POST":
 		form = UtilisationForm(request.POST, initial={'exercice': exercice})
 		if form.is_valid():
 			exercice = form.save(commit=False)
 			exercice.save()
-			return redirect('exercice-details', exercice_id = exercice.pk)
+			return redirect('exercice-details', exercice_id = exercice_id)
 	else:
 		form = UtilisationForm(initial={'exercice': exercice})
 	return render(request, 'exo/new_util.html', {'form': form,})
